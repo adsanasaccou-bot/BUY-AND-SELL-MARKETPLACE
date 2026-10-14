@@ -3,13 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Get and Buy Marketplace</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -26,16 +23,9 @@
       position: relative;
     }
 
-    header h1 {
-      margin: 0 0 10px;
-      font-size: 30px;
-    }
+    header h1 { margin: 0 0 10px; font-size: 30px; }
+    header p { margin: 0; }
 
-    header p {
-      margin: 0;
-    }
-
-    /* PROFILE ICON */
     .profile-area {
       position: absolute;
       right: 18px;
@@ -58,14 +48,7 @@
       cursor: pointer;
     }
 
-    .profile-icon:hover {
-      opacity: 0.9;
-    }
-
-    .login-icon {
-      background: white;
-      color: #123b67;
-    }
+    .login-icon { background: white; color: #123b67; }
 
     nav {
       background: #0c2948;
@@ -80,9 +63,7 @@
       font-weight: bold;
     }
 
-    nav a:hover {
-      text-decoration: underline;
-    }
+    nav a:hover { text-decoration: underline; }
 
     .account-message {
       text-align: center;
@@ -94,19 +75,12 @@
 
     .hero {
       text-align: center;
-      padding: 55px 16px;
+      padding: 40px 16px 30px;
       background: white;
     }
 
-    .hero h2 {
-      font-size: 32px;
-      margin-bottom: 12px;
-    }
-
-    .hero p {
-      color: #555;
-      font-size: 17px;
-    }
+    .hero h2 { font-size: 32px; margin-bottom: 12px; }
+    .hero p { color: #555; font-size: 17px; }
 
     .hero-button {
       display: inline-block;
@@ -119,29 +93,70 @@
       font-weight: bold;
     }
 
+    .search-area {
+      background: white;
+      padding: 0 16px 30px;
+      text-align: center;
+    }
+
+    .search-area h2 { margin: 0 0 14px; font-size: 23px; }
+
+    .search-box {
+      display: flex;
+      max-width: 650px;
+      margin: auto;
+      gap: 8px;
+    }
+
+    .search-box input {
+      flex: 1;
+      min-width: 0;
+      padding: 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .search-box button {
+      padding: 14px 20px;
+      background: #123b67;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .search-help {
+      color: #667085;
+      font-size: 13px;
+      margin: 10px 0 0;
+    }
+
     .container {
-      max-width: 1050px;
+      max-width: 1100px;
       margin: 30px auto;
       padding: 16px;
     }
 
-    .container > h2 {
+    .product-section { margin-bottom: 38px; }
+
+    .section-heading {
       text-align: center;
-      font-size: 28px;
+      font-size: 27px;
+      margin: 0 0 10px;
     }
 
     .intro {
       text-align: center;
       color: #666;
       margin-bottom: 25px;
+      line-height: 1.5;
     }
 
     .products {
       display: grid;
-      grid-template-columns: repeat(
-        auto-fit,
-        minmax(220px, 1fr)
-      );
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 18px;
     }
 
@@ -152,9 +167,7 @@
       box-shadow: 0 2px 10px rgba(0,0,0,0.08);
     }
 
-    .card h3 {
-      margin-top: 10px;
-    }
+    .card h3 { margin-top: 10px; }
 
     .card p {
       color: #555;
@@ -189,36 +202,24 @@
       border: 1px solid #ddd;
       padding: 9px 12px;
       border-radius: 6px;
-      margin-left: 5px;
+      margin: 8px 0 0 5px;
       cursor: pointer;
     }
 
-    .sell-section {
-      margin-top: 30px;
+    .empty-message {
+      display: none;
       text-align: center;
-    }
-
-    .sell-section h2 {
-      margin-top: 0;
-    }
-
-    .sell-button {
-      display: inline-block;
-      background: #087f5b;
-      color: white;
-      text-decoration: none;
-      padding: 12px 20px;
-      border-radius: 6px;
-      font-weight: bold;
-      margin-top: 8px;
+      color: #667085;
+      padding: 25px;
+      background: white;
+      border-radius: 10px;
     }
 
     .features {
       display: grid;
-      grid-template-columns:
-        repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 15px;
-      margin-top: 30px;
+      margin-top: 25px;
     }
 
     .feature {
@@ -229,8 +230,27 @@
       box-shadow: 0 2px 10px rgba(0,0,0,0.06);
     }
 
-    .feature h3 {
-      color: #123b67;
+    .feature h3 { color: #123b67; }
+
+    .sell-callout {
+      background: #eaf3ff;
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      margin-top: 35px;
+    }
+
+    .sell-callout h2 { color: #123b67; }
+
+    .sell-callout a {
+      display: inline-block;
+      background: #087f5b;
+      color: white;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-weight: bold;
+      margin-top: 8px;
     }
 
     footer {
@@ -241,560 +261,335 @@
       margin-top: 40px;
     }
 
-    footer p {
-      margin: 6px;
-    }
+    footer p { margin: 6px; }
 
     @media (max-width: 600px) {
-
-      header {
-        padding-top: 75px;
-      }
-
-      header h1 {
-        font-size: 25px;
-      }
-
-      .hero h2 {
-        font-size: 26px;
-      }
-
-      nav a {
-        display: inline-block;
-        margin: 5px 7px;
-      }
-
-      .profile-area {
-        right: 15px;
-        top: 15px;
-      }
-
-      .profile-icon {
-        width: 42px;
-        height: 42px;
-      }
+      header { padding: 75px 16px 24px; }
+      header h1 { font-size: 25px; }
+      .hero h2 { font-size: 26px; }
+      nav a { display: inline-block; margin: 5px 7px; }
+      .profile-area { right: 15px; top: 15px; }
+      .profile-icon { width: 42px; height: 42px; }
+      .search-box button { padding: 12px; }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- HEADER -->
-
   <header>
-
     <div class="profile-area">
-
-      <!-- Login ہونے پر یہ profile icon بن جائے گا -->
-      <a
-        id="profileIcon"
-        class="profile-icon login-icon"
-        href="login.html"
-        title="Login">
-        👤
-      </a>
-
+      <a id="profileIcon" class="profile-icon login-icon"
+         href="login.html" title="Login">👤</a>
     </div>
 
-    <h1>
-      Get and Buy Marketplace
-    </h1>
-
-    <p>
-      A place to discover products from around the world
-    </p>
-
+    <h1>Get and Buy Marketplace</h1>
+    <p>A place to discover products from around the world</p>
   </header>
 
-
-  <!-- NAVIGATION -->
-
   <nav>
-
-    <a href="#home">
-      Home
-    </a>
-
-    <a href="#products">
-      Products
-    </a>
-
-    <a href="#categories">
-      Categories
-    </a>
-
-    <a href="#sell">
-      Sell With Us
-    </a>
-
+    <a href="#home">Home</a>
+    <a href="#products">Products</a>
+    <a href="#categories">Categories</a>
+    <a href="#sell">Start Selling</a>
   </nav>
 
-
-  <!-- LOGIN STATUS -->
-
-  <div
-    class="account-message"
-    id="accountMessage">
+  <div class="account-message" id="accountMessage">
     Welcome to Get and Buy Marketplace!
   </div>
 
-
-  <!-- HERO -->
-
-  <section
-    class="hero"
-    id="home">
-
-    <h2>
-      Buy and Sell Around the World
-    </h2>
-
-    <p>
-      Discover products and connect with sellers worldwide.
-    </p>
-
-    <a
-      class="hero-button"
-      href="#products">
-      Explore Products
-    </a>
-
+  <section class="hero" id="home">
+    <h2>Buy and Sell Around the World</h2>
+    <p>Discover products and connect with sellers worldwide.</p>
+    <a class="hero-button" href="#products">Explore Products</a>
   </section>
 
-
-  <!-- PRODUCTS -->
+  <!-- PRODUCT SEARCH -->
+  <section class="search-area">
+    <h2>Find Your Product</h2>
+    <form class="search-box" id="searchForm">
+      <input id="searchInput" type="search"
+             placeholder="Search products by name..."
+             aria-label="Search products">
+      <button type="submit">Search</button>
+    </form>
+    <p class="search-help">Search products currently displayed on this page.</p>
+  </section>
 
   <main class="container">
 
-    <h2 id="products">
-      Featured Products
-    </h2>
+    <!-- FEATURED PRODUCTS -->
+    <section class="product-section" id="products">
+      <h2 class="section-heading">Featured Products</h2>
+      <p class="intro">Discover selected products from our marketplace.</p>
 
-    <p class="intro">
-      Discover products from sellers around the world.
-    </p>
+      <div class="products">
+        <article class="card product-card" data-name="Handmade Accessories" data-category="Handmade">
+          <span class="tag">Featured</span>
+          <h3>Handmade Accessories</h3>
+          <p>Discover unique handmade accessories from independent sellers.</p>
+          <p><strong>Price:</strong> Coming Soon</p>
+          <button class="product-button" onclick="viewProduct('Handmade Accessories')">View Details</button>
+          <button class="favorite-button" onclick="addFavorite('Handmade Accessories')">♥ Favorite</button>
+        </article>
 
+        <article class="card product-card" data-name="Fashion and Clothing" data-category="Fashion">
+          <span class="tag">Featured</span>
+          <h3>Fashion and Clothing</h3>
+          <p>Explore fashion and clothing products from different sellers.</p>
+          <p><strong>Price:</strong> Coming Soon</p>
+          <button class="product-button" onclick="viewProduct('Fashion and Clothing')">View Details</button>
+          <button class="favorite-button" onclick="addFavorite('Fashion and Clothing')">♥ Favorite</button>
+        </article>
 
-    <div class="products">
-
-      <!-- PRODUCT 1 -->
-
-      <article class="card">
-
-        <span class="tag">
-          Featured
-        </span>
-
-        <h3>
-          Handmade Accessories
-        </h3>
-
-        <p>
-          Discover unique handmade accessories
-          from independent sellers.
-        </p>
-
-        <p>
-          <strong>
-            Price:
-          </strong>
-          Coming Soon
-        </p>
-
-        <button
-          class="product-button"
-          onclick="viewProduct('Handmade Accessories')">
-          View Details
-        </button>
-
-        <button
-          class="favorite-button"
-          onclick="addFavorite('Handmade Accessories')">
-          ♥ Favorite
-        </button>
-
-      </article>
-
-
-      <!-- PRODUCT 2 -->
-
-      <article class="card">
-
-        <span class="tag">
-          Featured
-        </span>
-
-        <h3>
-          Fashion and Clothing
-        </h3>
-
-        <p>
-          Explore fashion and clothing products
-          from different sellers.
-        </p>
-
-        <p>
-          <strong>
-            Price:
-          </strong>
-          Coming Soon
-        </p>
-
-        <button
-          class="product-button"
-          onclick="viewProduct('Fashion and Clothing')">
-          View Details
-        </button>
-
-        <button
-          class="favorite-button"
-          onclick="addFavorite('Fashion and Clothing')">
-          ♥ Favorite
-        </button>
-
-      </article>
-
-
-      <!-- PRODUCT 3 -->
-
-      <article class="card">
-
-        <span class="tag">
-          Featured
-        </span>
-
-        <h3>
-          Home and Crafts
-        </h3>
-
-        <p>
-          Find creative and useful products
-          for your home.
-        </p>
-
-        <p>
-          <strong>
-            Price:
-          </strong>
-          Coming Soon
-        </p>
-
-        <button
-          class="product-button"
-          onclick="viewProduct('Home and Crafts')">
-          View Details
-        </button>
-
-        <button
-          class="favorite-button"
-          onclick="addFavorite('Home and Crafts')">
-          ♥ Favorite
-        </button>
-
-      </article>
-
-    </div>
-
-
-    <!-- CATEGORIES -->
-
-    <section
-      class="features"
-      id="categories">
-
-      <div class="feature">
-
-        <h3>
-          Handmade
-        </h3>
-
-        <p>
-          Unique handmade products.
-        </p>
-
+        <article class="card product-card" data-name="Home and Crafts" data-category="Home">
+          <span class="tag">Featured</span>
+          <h3>Home and Crafts</h3>
+          <p>Find creative and useful products for your home.</p>
+          <p><strong>Price:</strong> Coming Soon</p>
+          <button class="product-button" onclick="viewProduct('Home and Crafts')">View Details</button>
+          <button class="favorite-button" onclick="addFavorite('Home and Crafts')">♥ Favorite</button>
+        </article>
       </div>
-
-
-      <div class="feature">
-
-        <h3>
-          Fashion
-        </h3>
-
-        <p>
-          Fashion and clothing.
-        </p>
-
-      </div>
-
-
-      <div class="feature">
-
-        <h3>
-          Home & Crafts
-        </h3>
-
-        <p>
-          Creative products for your home.
-        </p>
-
-      </div>
-
-
-      <div class="feature">
-
-        <h3>
-          Worldwide
-        </h3>
-
-        <p>
-          Buy and sell around the world.
-        </p>
-
-      </div>
-
     </section>
 
+    <p class="empty-message" id="emptyMessage">
+      No matching products found. Try another product name.
+    </p>
 
-    <!-- SELLER SECTION -->
+    <!-- LATEST PRODUCTS -->
+    <section class="product-section" id="latest">
+      <h2 class="section-heading">Latest Products</h2>
+      <p class="intro">Explore more product categories.</p>
 
-    <section
-      class="card sell-section"
-      id="sell">
+      <div class="products">
+        <article class="card product-card" data-name="Mobile Phones" data-category="Electronics">
+          <span class="tag">Electronics</span>
+          <h3>Mobile Phones</h3>
+          <p>Discover phones and mobile accessories.</p>
+          <p><strong>Price:</strong> Coming Soon</p>
+          <button class="product-button" onclick="viewProduct('Mobile Phones')">View Details</button>
+          <button class="favorite-button" onclick="addFavorite('Mobile Phones')">♥ Favorite</button>
+        </article>
 
-      <h2>
-        Want to Sell Your Products?
-      </h2>
+        <article class="card product-card" data-name="Shoes and Sneakers" data-category="Fashion">
+          <span class="tag">Fashion</span>
+          <h3>Shoes and Sneakers</h3>
+          <p>Explore casual shoes and stylish footwear.</p>
+          <p><strong>Price:</strong> Coming Soon</p>
+          <button class="product-button" onclick="viewProduct('Shoes and Sneakers')">View Details</button>
+          <button class="favorite-button" onclick="addFavorite('Shoes and Sneakers')">♥ Favorite</button>
+        </article>
 
-      <p>
-        Join our marketplace and reach buyers
-        around the world.
-      </p>
+        <article class="card product-card" data-name="Home Decor" data-category="Home">
+          <span class="tag">Home</span>
+          <h3>Home Decor</h3>
+          <p>Ideas and products to decorate your home.</p>
+          <p><strong>Price:</strong> Coming Soon</p>
+          <button class="product-button" onclick="viewProduct('Home Decor')">View Details</button>
+          <button class="favorite-button" onclick="addFavorite('Home Decor')">♥ Favorite</button>
+        </article>
+      </div>
+    </section>
 
-      <a
-        class="sell-button"
-        href="signup.html">
-        Become a Seller
-      </a>
+    <!-- POPULAR CATEGORIES -->
+    <section class="product-section" id="popular">
+      <h2 class="section-heading">Popular Categories</h2>
+      <p class="intro">Browse products by category.</p>
 
+      <div class="features" id="categories">
+        <div class="feature">
+          <h3>Handmade</h3>
+          <p>Unique handmade products.</p>
+        </div>
+        <div class="feature">
+          <h3>Fashion</h3>
+          <p>Fashion and clothing.</p>
+        </div>
+        <div class="feature">
+          <h3>Home & Crafts</h3>
+          <p>Creative products for your home.</p>
+        </div>
+        <div class="feature">
+          <h3>Electronics</h3>
+          <p>Phones and useful electronics.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MORE PRODUCT IDEAS -->
+    <section class="product-section" id="more-products">
+      <h2 class="section-heading">More to Explore</h2>
+      <p class="intro">More categories will be available as products are added.</p>
+
+      <div class="products">
+        <article class="card product-card" data-name="Bags and Backpacks" data-category="Accessories">
+          <span class="tag">Accessories</span>
+          <h3>Bags and Backpacks</h3>
+          <p>Browse everyday bags and backpacks.</p>
+          <p><strong>Price:</strong> Coming Soon</p>
+          <button class="product-button" onclick="viewProduct('Bags and Backpacks')">View Details</button>
+          <button class="favorite-button" onclick="addFavorite('Bags and Backpacks')">♥ Favorite</button>
+        </article>
+
+        <article class="card product-card" data-name="Sports Accessories" data-category="Sports">
+          <span class="tag">Sports</span>
+          <h3>Sports Accessories</h3>
+          <p>Explore accessories for sports and exercise.</p>
+          <p><strong>Price:</strong> Coming Soon</p>
+          <button class="product-button" onclick="viewProduct('Sports Accessories')">View Details</button>
+          <button class="favorite-button" onclick="addFavorite('Sports Accessories')">♥ Favorite</button>
+        </article>
+
+        <article class="card product-card" data-name="Books and Stationery" data-category="Books">
+          <span class="tag">Books</span>
+          <h3>Books and Stationery</h3>
+          <p>Find books and everyday stationery items.</p>
+          <p><strong>Price:</strong> Coming Soon</p>
+          <button class="product-button" onclick="viewProduct('Books and Stationery')">View Details</button>
+          <button class="favorite-button" onclick="addFavorite('Books and Stationery')">♥ Favorite</button>
+        </article>
+      </div>
+    </section>
+
+    <!-- ONE ACCOUNT FOR BUYING AND SELLING -->
+    <section class="sell-callout" id="sell">
+      <h2>Have Something to Sell?</h2>
+      <p>Use your existing marketplace account to prepare to list your products.</p>
+      <a href="profile.html" id="sellLink">Go to My Account</a>
     </section>
 
   </main>
 
-
-  <!-- FOOTER -->
-
   <footer>
-
-    <p>
-      <strong>
-        Get and Buy Marketplace
-      </strong>
-    </p>
-
-    <p>
-      Buy and Sell Around the World
-    </p>
-
-    <p>
-      © 2026 Get and Buy Marketplace
-    </p>
-
+    <p><strong>Get and Buy Marketplace</strong></p>
+    <p>Buy and Sell Around the World</p>
+    <p>© 2026 Get and Buy Marketplace</p>
   </footer>
 
-
-  <!-- FIREBASE -->
-
   <script type="module">
-
-    import {
-      initializeApp
-    } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
-
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
     import {
       getAuth,
       onAuthStateChanged
-    } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
-
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
     const firebaseConfig = {
-
-      apiKey:
-        "AIzaSyDgyL5BzzWdvdTv2Y8ZZo_LX2cIXE3SO-c",
-
-      authDomain:
-        "get-and-buy-marketplace.firebaseapp.com",
-
-      projectId:
-        "get-and-buy-marketplace",
-
-      storageBucket:
-        "get-and-buy-marketplace.firebasestorage.app",
-
-      messagingSenderId:
-        "67666978418",
-
-      appId:
-        "1:67666978418:web:f2618b9ac9c133ebdfc4eb",
-
-      measurementId:
-        "G-XTLMRGQBJM"
-
+      apiKey: "AIzaSyDgyL5BzzWdvdTv2Y8ZZo_LX2cIXE3SO-c",
+      authDomain: "get-and-buy-marketplace.firebaseapp.com",
+      projectId: "get-and-buy-marketplace",
+      storageBucket: "get-and-buy-marketplace.firebasestorage.app",
+      messagingSenderId: "67666978418",
+      appId: "1:67666978418:web:f2618b9ac9c133ebdfc4eb",
+      measurementId: "G-XTLMRGQBJM"
     };
 
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
-    const app =
-      initializeApp(firebaseConfig);
+    const profileIcon = document.getElementById("profileIcon");
+    const accountMessage = document.getElementById("accountMessage");
+    const sellLink = document.getElementById("sellLink");
 
-    const auth =
-      getAuth(app);
+    onAuthStateChanged(auth, function(user) {
+      if (user) {
+        profileIcon.href = "profile.html";
+        profileIcon.classList.remove("login-icon");
 
+        const name = user.displayName || user.email || "U";
+        profileIcon.textContent = name.charAt(0).toUpperCase();
+        profileIcon.title = "My Profile";
 
-    const profileIcon =
-      document.getElementById("profileIcon");
+        accountMessage.style.display = "block";
+        accountMessage.textContent = "Welcome, " + name + "!";
+        sellLink.href = "profile.html";
+        sellLink.textContent = "Go to My Account";
+      } else {
+        profileIcon.href = "login.html";
+        profileIcon.classList.add("login-icon");
+        profileIcon.textContent = "👤";
+        profileIcon.title = "Login";
 
-    const accountMessage =
-      document.getElementById("accountMessage");
-
-
-    /*
-      CHECK USER LOGIN
-    */
-
-    onAuthStateChanged(
-      auth,
-      function(user) {
-
-        if (user) {
-
-          /*
-            User logged in
-            Profile icon opens profile.html
-          */
-
-          profileIcon.href =
-            "profile.html";
-
-          profileIcon.classList.remove(
-            "login-icon"
-          );
-
-          /*
-            User's first letter
-            will appear inside circle
-          */
-
-          const name =
-            user.displayName ||
-            user.email ||
-            "U";
-
-          profileIcon.textContent =
-            name.charAt(0).toUpperCase();
-
-          profileIcon.title =
-            "My Profile";
-
-          accountMessage.style.display =
-            "block";
-
-          accountMessage.textContent =
-            "Welcome, " + name + "!";
-
-        } else {
-
-          /*
-            User not logged in
-          */
-
-          profileIcon.href =
-            "login.html";
-
-          profileIcon.classList.add(
-            "login-icon"
-          );
-
-          profileIcon.textContent =
-            "👤";
-
-          profileIcon.title =
-            "Login";
-
-          accountMessage.style.display =
-            "none";
-
-        }
-
+        accountMessage.style.display = "none";
+        sellLink.href = "login.html";
+        sellLink.textContent = "Log In to Get Started";
       }
-    );
+    });
 
+    // Search the product cards currently displayed on this page.
+    const searchForm = document.getElementById("searchForm");
+    const searchInput = document.getElementById("searchInput");
+    const emptyMessage = document.getElementById("emptyMessage");
+    const productCards = Array.from(document.querySelectorAll(".product-card"));
+    const productSections = Array.from(document.querySelectorAll(".product-section"));
 
-    /*
-      VIEW PRODUCT
-    */
+    function searchProducts() {
+      const query = searchInput.value.trim().toLowerCase();
+      let matches = 0;
 
-    window.viewProduct =
-      function(productName) {
+      productCards.forEach(card => {
+        const name = (card.dataset.name || "").toLowerCase();
+        const category = (card.dataset.category || "").toLowerCase();
+        const text = card.textContent.toLowerCase();
+        const found = !query || name.includes(query) ||
+                      category.includes(query) || text.includes(query);
 
-        const user =
-          auth.currentUser;
+        card.style.display = found ? "" : "none";
+        if (found) matches++;
+      });
 
-        if (!user) {
-
-          alert(
-            "Please login first to view product details."
-          );
-
-          window.location.href =
-            "login.html";
-
-          return;
-
-        }
-
-        alert(
-          productName +
-          " product details will be available soon."
+      productSections.forEach(section => {
+        const visibleCards = section.querySelectorAll(
+          ".product-card:not([style*='display: none'])"
         );
+        const hasCards = section.querySelectorAll(".product-card").length > 0;
 
-      };
-
-
-    /*
-      ADD FAVORITE
-    */
-
-    window.addFavorite =
-      function(productName) {
-
-        const user =
-          auth.currentUser;
-
-        if (!user) {
-
-          alert(
-            "Please login first to add favorites."
-          );
-
-          window.location.href =
-            "login.html";
-
-          return;
-
+        if (hasCards) {
+          section.style.display = visibleCards.length ? "" : "none";
+        } else {
+          section.style.display = "";
         }
+      });
 
-        alert(
-          productName +
-          " will be added to your favorites."
-        );
+      emptyMessage.style.display = matches ? "none" : "block";
+      if (query) {
+        document.getElementById("products").scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }
+    }
 
-        /*
-          Firebase Firestore will be connected
-          to this function in the next step.
-        */
+    searchForm.addEventListener("submit", event => {
+      event.preventDefault();
+      searchProducts();
+    });
 
-      };
+    searchInput.addEventListener("input", searchProducts);
 
+    window.viewProduct = function(productName) {
+      const user = auth.currentUser;
+
+      if (!user) {
+        alert("Please log in first to continue.");
+        window.location.href = "login.html";
+        return;
+      }
+
+      alert(productName + ": detailed product pages and real prices will be added in a later step.");
+    };
+
+    window.addFavorite = function(productName) {
+      const user = auth.currentUser;
+
+      if (!user) {
+        alert("Please log in first to use favorites.");
+        window.location.href = "login.html";
+        return;
+      }
+
+      alert(productName + " favorites will be connected to the database in a later step.");
+    };
   </script>
 
 </body>
