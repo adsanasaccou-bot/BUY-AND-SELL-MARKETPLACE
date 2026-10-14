@@ -57,6 +57,11 @@
       font-size: 15px;
     }
 
+    button {
+      cursor: pointer;
+      font-size: 16px;
+    }
+
     .login-btn {
       width: 100%;
       padding: 13px;
@@ -64,8 +69,7 @@
       color: white;
       border: none;
       border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
+      font-weight: bold;
     }
 
     .google-btn {
@@ -76,8 +80,7 @@
       color: #333;
       border: 1px solid #bbb;
       border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
+      font-weight: bold;
     }
 
     .divider {
@@ -104,6 +107,13 @@
       color: #123b67;
       text-decoration: none;
     }
+
+    #message {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+      min-height: 20px;
+    }
   </style>
 </head>
 
@@ -113,11 +123,16 @@
 
     <h1 class="logo">Get and Buy</h1>
 
-    <p class="subtitle">Login to your marketplace account</p>
+    <p class="subtitle">
+      Login to your marketplace account
+    </p>
 
-    <form onsubmit="loginUser(event)">
+    <form id="loginForm">
 
-      <label for="email">Email Address</label>
+      <label for="email">
+        Email Address
+      </label>
+
       <input
         type="email"
         id="email"
@@ -125,7 +140,10 @@
         required
       >
 
-      <label for="password">Password</label>
+      <label for="password">
+        Password
+      </label>
+
       <input
         type="password"
         id="password"
@@ -133,45 +151,159 @@
         required
       >
 
-      <button class="login-btn" type="submit">
+      <button
+        class="login-btn"
+        type="submit">
         Login
       </button>
 
     </form>
 
-    <div class="divider">OR</div>
+    <div class="divider">
+      OR
+    </div>
 
-    <button class="google-btn" onclick="googleLogin()">
+    <button
+      class="google-btn"
+      id="googleLogin">
       Continue with Google
     </button>
+
+    <div id="message"></div>
 
     <div class="signup">
       Don't have an account?
       <a href="signup.html">Sign Up</a>
     </div>
 
-    <a class="back" href="index.html">
+    <a
+      class="back"
+      href="index.html">
       ← Back to Home
     </a>
 
   </div>
 
-  <script>
-    function loginUser(event) {
-      event.preventDefault();
 
-      const email = document.getElementById("email").value;
+  <script type="module">
 
-      alert(
-        "Login page is ready! Real account authentication will be connected next."
-      );
-    }
+    import {
+      initializeApp
+    } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
 
-    function googleLogin() {
-      alert(
-        "Google Login will be connected with Firebase in the next step."
-      );
-    }
+    import {
+      getAuth,
+      signInWithEmailAndPassword,
+      GoogleAuthProvider,
+      signInWithPopup
+    } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
+
+
+    const firebaseConfig = {
+
+      apiKey: "AIzaSyDgyL5BzzWdvdTv2Y8ZZo_LX2cIXE3SO-c",
+
+      authDomain: "get-and-buy-marketplace.firebaseapp.com",
+
+      projectId: "get-and-buy-marketplace",
+
+      storageBucket: "get-and-buy-marketplace.firebasestorage.app",
+
+      messagingSenderId: "67666978418",
+
+      appId: "1:67666978418:web:f2618b9ac9c133ebdfc4eb",
+
+      measurementId: "G-XTLMRGQBJM"
+
+    };
+
+
+    const app = initializeApp(firebaseConfig);
+
+    const auth = getAuth(app);
+
+    const provider = new GoogleAuthProvider();
+
+
+    const message = document.getElementById("message");
+
+
+    document
+      .getElementById("loginForm")
+      .addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const email =
+          document.getElementById("email").value.trim();
+
+        const password =
+          document.getElementById("password").value;
+
+        message.textContent = "Logging in...";
+
+        try {
+
+          await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+
+          message.textContent =
+            "Login successful!";
+
+          setTimeout(function() {
+
+            window.location.href =
+              "index.html";
+
+          }, 1000);
+
+        } catch (error) {
+
+          message.textContent =
+            "Login failed: " + error.message;
+
+        }
+
+      });
+
+
+    document
+      .getElementById("googleLogin")
+      .addEventListener("click", async function() {
+
+        message.textContent =
+          "Connecting to Google...";
+
+        try {
+
+          await signInWithPopup(
+            auth,
+            provider
+          );
+
+          message.textContent =
+            "Google login successful!";
+
+          setTimeout(function() {
+
+            window.location.href =
+              "index.html";
+
+          }, 1000);
+
+        } catch (error) {
+
+          message.textContent =
+            "Google login failed: " +
+            error.message;
+
+        }
+
+      });
+
   </script>
 
 </body>
