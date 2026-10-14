@@ -23,6 +23,7 @@
       color: white;
       padding: 24px 16px;
       text-align: center;
+      position: relative;
     }
 
     header h1 {
@@ -34,6 +35,38 @@
       margin: 0;
     }
 
+    /* PROFILE ICON */
+    .profile-area {
+      position: absolute;
+      right: 18px;
+      top: 18px;
+    }
+
+    .profile-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 2px solid white;
+      background: #087f5b;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 19px;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .profile-icon:hover {
+      opacity: 0.9;
+    }
+
+    .login-icon {
+      background: white;
+      color: #123b67;
+    }
+
     nav {
       background: #0c2948;
       padding: 15px;
@@ -43,7 +76,7 @@
     nav a {
       color: white;
       text-decoration: none;
-      margin: 0 9px;
+      margin: 0 10px;
       font-weight: bold;
     }
 
@@ -51,46 +84,11 @@
       text-decoration: underline;
     }
 
-    .account-area {
-      margin-top: 15px;
-    }
-
-    .account-buttons a,
-    .account-buttons button {
-      display: inline-block;
-      text-decoration: none;
-      padding: 10px 18px;
-      margin: 5px;
-      border-radius: 6px;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .login {
-      background: white;
-      color: #123b67;
-    }
-
-    .signup {
-      background: #087f5b;
-      color: white;
-    }
-
-    .profile-button {
-      background: #087f5b;
-      color: white;
-    }
-
-    .logout-button {
-      background: #b42318;
-      color: white;
-    }
-
-    .user-info {
-      margin-top: 12px;
-      font-size: 14px;
+    .account-message {
+      text-align: center;
+      padding: 10px;
+      background: #e3f7ed;
+      color: #087f5b;
       display: none;
     }
 
@@ -140,7 +138,10 @@
 
     .products {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(220px, 1fr)
+      );
       gap: 18px;
     }
 
@@ -212,88 +213,24 @@
       margin-top: 8px;
     }
 
-    .profile-section {
-      display: none;
-      margin-top: 30px;
-    }
-
-    .profile-header {
-      text-align: center;
-      margin-bottom: 25px;
-    }
-
-    .profile-avatar {
-      width: 75px;
-      height: 75px;
-      border-radius: 50%;
-      background: #123b67;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 12px;
-      font-size: 30px;
-      font-weight: bold;
-    }
-
-    .profile-email {
-      color: #666;
-      word-break: break-word;
-    }
-
-    .profile-grid {
+    .features {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns:
+        repeat(auto-fit, minmax(180px, 1fr));
       gap: 15px;
-    }
-
-    .profile-card {
-      background: #f8f9fa;
-      border: 1px solid #e1e5e9;
-      padding: 20px;
-      border-radius: 8px;
-      text-align: center;
-    }
-
-    .profile-card h3 {
-      margin-top: 0;
-      color: #123b67;
-    }
-
-    .profile-card p {
-      margin-bottom: 0;
-      color: #666;
-    }
-
-    .profile-card a {
-      display: inline-block;
-      margin-top: 10px;
-      text-decoration: none;
-      background: #123b67;
-      color: white;
-      padding: 9px 14px;
-      border-radius: 5px;
-    }
-
-    .cart-section {
-      display: none;
       margin-top: 30px;
     }
 
-    .cart-empty {
+    .feature {
+      background: white;
+      padding: 20px;
       text-align: center;
-      color: #666;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
     }
 
-    .notice {
-      display: none;
-      background: #fff3cd;
-      color: #664d03;
-      padding: 12px;
-      border-radius: 6px;
-      margin: 15px auto;
-      max-width: 700px;
-      text-align: center;
+    .feature h3 {
+      color: #123b67;
     }
 
     footer {
@@ -310,6 +247,10 @@
 
     @media (max-width: 600px) {
 
+      header {
+        padding-top: 75px;
+      }
+
       header h1 {
         font-size: 25px;
       }
@@ -322,52 +263,51 @@
         display: inline-block;
         margin: 5px 7px;
       }
+
+      .profile-area {
+        right: 15px;
+        top: 15px;
+      }
+
+      .profile-icon {
+        width: 42px;
+        height: 42px;
+      }
     }
   </style>
 </head>
 
 <body>
 
+  <!-- HEADER -->
+
   <header>
 
-    <h1>Get and Buy Marketplace</h1>
+    <div class="profile-area">
 
-    <p>A place to discover products from around the world</p>
-
-    <div class="account-area">
-
-      <!-- Shown when user is logged out -->
-      <div class="account-buttons" id="loggedOutArea">
-
-        <a class="login" href="login.html">
-          Login
-        </a>
-
-        <a class="signup" href="signup.html">
-          Sign Up
-        </a>
-
-      </div>
-
-      <!-- Shown when user is logged in -->
-      <div class="account-buttons" id="loggedInArea" style="display:none;">
-
-        <a class="profile-button" href="#profile">
-          My Profile
-        </a>
-
-        <button class="logout-button" id="logoutButton">
-          Logout
-        </button>
-
-      </div>
-
-      <div class="user-info" id="userInfo"></div>
+      <!-- Login ہونے پر یہ profile icon بن جائے گا -->
+      <a
+        id="profileIcon"
+        class="profile-icon login-icon"
+        href="login.html"
+        title="Login">
+        👤
+      </a>
 
     </div>
 
+    <h1>
+      Get and Buy Marketplace
+    </h1>
+
+    <p>
+      A place to discover products from around the world
+    </p>
+
   </header>
 
+
+  <!-- NAVIGATION -->
 
   <nav>
 
@@ -379,12 +319,8 @@
       Products
     </a>
 
-    <a href="#profile">
-      My Profile
-    </a>
-
-    <a href="#cart">
-      Cart
+    <a href="#categories">
+      Categories
     </a>
 
     <a href="#sell">
@@ -394,12 +330,20 @@
   </nav>
 
 
-  <div class="notice" id="loginNotice">
-    Please login to use your account features.
+  <!-- LOGIN STATUS -->
+
+  <div
+    class="account-message"
+    id="accountMessage">
+    Welcome to Get and Buy Marketplace!
   </div>
 
 
-  <section class="hero" id="home">
+  <!-- HERO -->
+
+  <section
+    class="hero"
+    id="home">
 
     <h2>
       Buy and Sell Around the World
@@ -409,12 +353,16 @@
       Discover products and connect with sellers worldwide.
     </p>
 
-    <a class="hero-button" href="#products">
+    <a
+      class="hero-button"
+      href="#products">
       Explore Products
     </a>
 
   </section>
 
+
+  <!-- PRODUCTS -->
 
   <main class="container">
 
@@ -429,6 +377,8 @@
 
     <div class="products">
 
+      <!-- PRODUCT 1 -->
+
       <article class="card">
 
         <span class="tag">
@@ -440,27 +390,33 @@
         </h3>
 
         <p>
-          Discover unique handmade accessories from independent sellers.
+          Discover unique handmade accessories
+          from independent sellers.
         </p>
 
         <p>
-          <strong>Price:</strong> Coming Soon
+          <strong>
+            Price:
+          </strong>
+          Coming Soon
         </p>
 
         <button
-          class="product-button buy-button"
-          data-product="Handmade Accessories">
+          class="product-button"
+          onclick="viewProduct('Handmade Accessories')">
           View Details
         </button>
 
         <button
-          class="favorite-button favorite-button-action"
-          data-product="Handmade Accessories">
+          class="favorite-button"
+          onclick="addFavorite('Handmade Accessories')">
           ♥ Favorite
         </button>
 
       </article>
 
+
+      <!-- PRODUCT 2 -->
 
       <article class="card">
 
@@ -473,27 +429,33 @@
         </h3>
 
         <p>
-          Explore fashion and clothing products from different sellers.
+          Explore fashion and clothing products
+          from different sellers.
         </p>
 
         <p>
-          <strong>Price:</strong> Coming Soon
+          <strong>
+            Price:
+          </strong>
+          Coming Soon
         </p>
 
         <button
-          class="product-button buy-button"
-          data-product="Fashion and Clothing">
+          class="product-button"
+          onclick="viewProduct('Fashion and Clothing')">
           View Details
         </button>
 
         <button
-          class="favorite-button favorite-button-action"
-          data-product="Fashion and Clothing">
+          class="favorite-button"
+          onclick="addFavorite('Fashion and Clothing')">
           ♥ Favorite
         </button>
 
       </article>
 
+
+      <!-- PRODUCT 3 -->
 
       <article class="card">
 
@@ -506,22 +468,26 @@
         </h3>
 
         <p>
-          Find creative and useful products for your home.
+          Find creative and useful products
+          for your home.
         </p>
 
         <p>
-          <strong>Price:</strong> Coming Soon
+          <strong>
+            Price:
+          </strong>
+          Coming Soon
         </p>
 
         <button
-          class="product-button buy-button"
-          data-product="Home and Crafts">
+          class="product-button"
+          onclick="viewProduct('Home and Crafts')">
           View Details
         </button>
 
         <button
-          class="favorite-button favorite-button-action"
-          data-product="Home and Crafts">
+          class="favorite-button"
+          onclick="addFavorite('Home and Crafts')">
           ♥ Favorite
         </button>
 
@@ -530,171 +496,79 @@
     </div>
 
 
-    <!-- PROFILE -->
+    <!-- CATEGORIES -->
 
-    <section class="card profile-section" id="profile">
+    <section
+      class="features"
+      id="categories">
 
-      <div class="profile-header">
+      <div class="feature">
 
-        <div class="profile-avatar" id="profileAvatar">
-          U
-        </div>
+        <h3>
+          Handmade
+        </h3>
 
-        <h2>
-          My Profile
-        </h2>
-
-        <p class="profile-email" id="profileEmail">
-          Not logged in
+        <p>
+          Unique handmade products.
         </p>
 
       </div>
 
 
-      <div class="profile-grid">
+      <div class="feature">
 
-        <div class="profile-card">
+        <h3>
+          Fashion
+        </h3>
 
-          <h3>
-            🛒 My Purchases
-          </h3>
+        <p>
+          Fashion and clothing.
+        </p>
 
-          <p id="purchaseCount">
-            0 purchases
-          </p>
-
-          <a href="#purchases">
-            View Purchases
-          </a>
-
-        </div>
+      </div>
 
 
-        <div class="profile-card">
+      <div class="feature">
 
-          <h3>
-            📦 My Orders
-          </h3>
+        <h3>
+          Home & Crafts
+        </h3>
 
-          <p id="orderCount">
-            0 orders
-          </p>
+        <p>
+          Creative products for your home.
+        </p>
 
-          <a href="#orders">
-            View Orders
-          </a>
-
-        </div>
+      </div>
 
 
-        <div class="profile-card">
+      <div class="feature">
 
-          <h3>
-            ♥ Favorites
-          </h3>
+        <h3>
+          Worldwide
+        </h3>
 
-          <p id="favoriteCount">
-            0 favorites
-          </p>
-
-          <a href="#favorites">
-            View Favorites
-          </a>
-
-        </div>
-
-
-        <div class="profile-card">
-
-          <h3>
-            🛍️ My Cart
-          </h3>
-
-          <p id="cartCount">
-            0 items
-          </p>
-
-          <a href="#cart">
-            Open Cart
-          </a>
-
-        </div>
+        <p>
+          Buy and sell around the world.
+        </p>
 
       </div>
 
     </section>
 
 
-    <!-- PURCHASES -->
+    <!-- SELLER SECTION -->
 
-    <section class="card profile-section" id="purchases">
-
-      <h2>
-        My Purchases
-      </h2>
-
-      <p id="purchasesText">
-        Your purchased products will appear here.
-      </p>
-
-    </section>
-
-
-    <!-- ORDERS -->
-
-    <section class="card profile-section" id="orders">
-
-      <h2>
-        My Orders
-      </h2>
-
-      <p id="ordersText">
-        Your current and previous orders will appear here.
-      </p>
-
-    </section>
-
-
-    <!-- FAVORITES -->
-
-    <section class="card profile-section" id="favorites">
-
-      <h2>
-        My Favorites
-      </h2>
-
-      <p id="favoritesText">
-        Your favorite products will appear here.
-      </p>
-
-    </section>
-
-
-    <!-- CART -->
-
-    <section class="card cart-section" id="cart">
-
-      <h2>
-        My Cart
-      </h2>
-
-      <p class="cart-empty" id="cartText">
-        Your cart is currently empty.
-      </p>
-
-    </section>
-
-
-    <!-- SELL -->
-
-    <section class="card sell-section" id="sell">
+    <section
+      class="card sell-section"
+      id="sell">
 
       <h2>
         Want to Sell Your Products?
       </h2>
 
       <p>
-        Join our marketplace and reach buyers around the world.
+        Join our marketplace and reach buyers
+        around the world.
       </p>
 
       <a
@@ -707,6 +581,8 @@
 
   </main>
 
+
+  <!-- FOOTER -->
 
   <footer>
 
@@ -737,14 +613,14 @@
 
     import {
       getAuth,
-      onAuthStateChanged,
-      signOut
+      onAuthStateChanged
     } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
 
 
     const firebaseConfig = {
 
-      apiKey: "AIzaSyDgyL5BzzWdvdTv2Y8ZZo_LX2cIXE3SO-c",
+      apiKey:
+        "AIzaSyDgyL5BzzWdvdTv2Y8ZZo_LX2cIXE3SO-c",
 
       authDomain:
         "get-and-buy-marketplace.firebaseapp.com",
@@ -774,39 +650,15 @@
       getAuth(app);
 
 
-    const loggedOutArea =
-      document.getElementById("loggedOutArea");
+    const profileIcon =
+      document.getElementById("profileIcon");
 
-    const loggedInArea =
-      document.getElementById("loggedInArea");
-
-    const userInfo =
-      document.getElementById("userInfo");
-
-    const profileSection =
-      document.getElementById("profile");
-
-    const purchasesSection =
-      document.getElementById("purchases");
-
-    const ordersSection =
-      document.getElementById("orders");
-
-    const favoritesSection =
-      document.getElementById("favorites");
-
-    const cartSection =
-      document.getElementById("cart");
-
-    const profileEmail =
-      document.getElementById("profileEmail");
-
-    const profileAvatar =
-      document.getElementById("profileAvatar");
+    const accountMessage =
+      document.getElementById("accountMessage");
 
 
     /*
-      CHECK LOGIN STATUS
+      CHECK USER LOGIN
     */
 
     onAuthStateChanged(
@@ -815,71 +667,60 @@
 
         if (user) {
 
-          loggedOutArea.style.display =
-            "none";
+          /*
+            User logged in
+            Profile icon opens profile.html
+          */
 
-          loggedInArea.style.display =
-            "block";
+          profileIcon.href =
+            "profile.html";
 
-          userInfo.style.display =
-            "block";
+          profileIcon.classList.remove(
+            "login-icon"
+          );
+
+          /*
+            User's first letter
+            will appear inside circle
+          */
 
           const name =
             user.displayName ||
-            "User";
-
-          const email =
             user.email ||
-            "";
+            "U";
 
-          userInfo.textContent =
-            "Welcome, " + name;
-
-          profileEmail.textContent =
-            email;
-
-          profileAvatar.textContent =
+          profileIcon.textContent =
             name.charAt(0).toUpperCase();
 
-          profileSection.style.display =
+          profileIcon.title =
+            "My Profile";
+
+          accountMessage.style.display =
             "block";
 
-          purchasesSection.style.display =
-            "block";
-
-          ordersSection.style.display =
-            "block";
-
-          favoritesSection.style.display =
-            "block";
-
-          cartSection.style.display =
-            "block";
+          accountMessage.textContent =
+            "Welcome, " + name + "!";
 
         } else {
 
-          loggedOutArea.style.display =
-            "block";
+          /*
+            User not logged in
+          */
 
-          loggedInArea.style.display =
-            "none";
+          profileIcon.href =
+            "login.html";
 
-          userInfo.style.display =
-            "none";
+          profileIcon.classList.add(
+            "login-icon"
+          );
 
-          profileSection.style.display =
-            "none";
+          profileIcon.textContent =
+            "👤";
 
-          purchasesSection.style.display =
-            "none";
+          profileIcon.title =
+            "Login";
 
-          ordersSection.style.display =
-            "none";
-
-          favoritesSection.style.display =
-            "none";
-
-          cartSection.style.display =
+          accountMessage.style.display =
             "none";
 
         }
@@ -889,126 +730,70 @@
 
 
     /*
-      LOGOUT
+      VIEW PRODUCT
     */
 
-    document
-      .getElementById("logoutButton")
-      .addEventListener(
-        "click",
-        async function() {
+    window.viewProduct =
+      function(productName) {
 
-          try {
+        const user =
+          auth.currentUser;
 
-            await signOut(auth);
+        if (!user) {
 
-            window.location.href =
-              "index.html";
+          alert(
+            "Please login first to view product details."
+          );
 
-          } catch (error) {
+          window.location.href =
+            "login.html";
 
-            alert(
-              "Logout failed: " +
-              error.message
-            );
-
-          }
+          return;
 
         }
-      );
+
+        alert(
+          productName +
+          " product details will be available soon."
+        );
+
+      };
 
 
     /*
-      PRODUCT / FAVORITE BUTTONS
+      ADD FAVORITE
     */
 
-    const buyButtons =
-      document.querySelectorAll(
-        ".buy-button"
-      );
+    window.addFavorite =
+      function(productName) {
 
-    buyButtons.forEach(
-      function(button) {
+        const user =
+          auth.currentUser;
 
-        button.addEventListener(
-          "click",
-          function() {
+        if (!user) {
 
-            const user =
-              auth.currentUser;
+          alert(
+            "Please login first to add favorites."
+          );
 
-            if (!user) {
+          window.location.href =
+            "login.html";
 
-              alert(
-                "Please login first."
-              );
+          return;
 
-              window.location.href =
-                "login.html";
+        }
 
-              return;
-
-            }
-
-            const product =
-              button.dataset.product;
-
-            alert(
-              product +
-              " details will be available soon."
-            );
-
-          }
+        alert(
+          productName +
+          " will be added to your favorites."
         );
 
-      }
-    );
+        /*
+          Firebase Firestore will be connected
+          to this function in the next step.
+        */
 
-
-    const favoriteButtons =
-      document.querySelectorAll(
-        ".favorite-button-action"
-      );
-
-    favoriteButtons.forEach(
-      function(button) {
-
-        button.addEventListener(
-          "click",
-          function() {
-
-            const user =
-              auth.currentUser;
-
-            if (!user) {
-
-              alert(
-                "Please login first to add favorites."
-              );
-
-              window.location.href =
-                "login.html";
-
-              return;
-
-            }
-
-            const product =
-              button.dataset.product;
-
-            button.textContent =
-              "♥ Favorited";
-
-            alert(
-              product +
-              " added to favorites."
-            );
-
-          }
-        );
-
-      }
-    );
+      };
 
   </script>
 
