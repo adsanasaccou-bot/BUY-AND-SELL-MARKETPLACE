@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign Up - Get and Buy Marketplace</title>
+
+  <title>Buyer Sign Up - Get and Buy Marketplace</title>
 
   <style>
     * {
@@ -42,6 +43,17 @@
       margin-bottom: 28px;
     }
 
+    .account-badge {
+      width: fit-content;
+      margin: 0 auto 22px;
+      background: #e3f7ed;
+      color: #087f5b;
+      padding: 7px 14px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
     label {
       display: block;
       margin-bottom: 7px;
@@ -74,6 +86,10 @@
       font-weight: bold;
     }
 
+    .signup-btn:hover {
+      opacity: 0.9;
+    }
+
     .google-btn {
       width: 100%;
       padding: 13px;
@@ -83,6 +99,10 @@
       border: 1px solid #bbb;
       border-radius: 6px;
       font-weight: bold;
+    }
+
+    .google-btn:hover {
+      background: #f7f7f7;
     }
 
     .divider {
@@ -100,6 +120,26 @@
       color: #087f5b;
       text-decoration: none;
       font-weight: bold;
+    }
+
+    .seller-link {
+      text-align: center;
+      margin-top: 18px;
+      padding: 14px;
+      background: #f4f6f8;
+      border-radius: 8px;
+    }
+
+    .seller-link p {
+      margin: 0 0 8px;
+      color: #555;
+      font-size: 14px;
+    }
+
+    .seller-link a {
+      color: #123b67;
+      font-weight: bold;
+      text-decoration: none;
     }
 
     .back {
@@ -123,11 +163,17 @@
 
   <div class="signup-box">
 
-    <h1 class="logo">Get and Buy</h1>
+    <h1 class="logo">
+      Get and Buy
+    </h1>
 
     <p class="subtitle">
-      Create your marketplace account
+      Create your buyer account
     </p>
+
+    <div class="account-badge">
+      Buyer Account
+    </div>
 
     <form id="signupForm">
 
@@ -201,26 +247,6 @@
 
       </select>
 
-      <label for="accountType">
-        Account Type
-      </label>
-
-      <select id="accountType" required>
-
-        <option value="">
-          Select account type
-        </option>
-
-        <option value="Buyer">
-          Buyer
-        </option>
-
-        <option value="Seller">
-          Seller
-        </option>
-
-      </select>
-
       <label for="password">
         Password
       </label>
@@ -236,29 +262,51 @@
       <button
         class="signup-btn"
         type="submit">
-        Create Account
+        Create Buyer Account
       </button>
 
     </form>
+
 
     <div class="divider">
       OR
     </div>
 
+
     <button
       class="google-btn"
-      id="googleSignup">
+      id="googleSignup"
+      type="button">
       Continue with Google
     </button>
 
+
     <div id="message"></div>
 
+
     <div class="login">
+
       Already have an account?
+
       <a href="login.html">
         Login
       </a>
+
     </div>
+
+
+    <div class="seller-link">
+
+      <p>
+        Want to sell products?
+      </p>
+
+      <a href="seller-signup.html">
+        Become a Seller
+      </a>
+
+    </div>
+
 
     <a
       class="back"
@@ -286,125 +334,220 @@
 
     const firebaseConfig = {
 
-      apiKey: "AIzaSyDgy5L5BzzWdvdTv2Y8ZZo_LX2cIXE3SO-c",
+      apiKey:
+        "AIzaSyDgyL5BzzWdvdTv2Y8ZZo_LX2cIXE3SO-c",
 
-      authDomain: "get-and-buy-marketplace.firebaseapp.com",
+      authDomain:
+        "get-and-buy-marketplace.firebaseapp.com",
 
-      projectId: "get-and-buy-marketplace",
+      projectId:
+        "get-and-buy-marketplace",
 
-      storageBucket: "get-and-buy-marketplace.firebasestorage.app",
+      storageBucket:
+        "get-and-buy-marketplace.firebasestorage.app",
 
-      messagingSenderId: "67666978418",
+      messagingSenderId:
+        "67666978418",
 
-      appId: "1:67666978418:web:f2618b9ac9c133ebdfc4eb",
+      appId:
+        "1:67666978418:web:f2618b9ac9c133ebdfc4eb",
 
-      measurementId: "G-XTLMRGQBJM"
+      measurementId:
+        "G-XTLMRGQBJM"
 
     };
 
 
-    const app = initializeApp(firebaseConfig);
+    const app =
+      initializeApp(firebaseConfig);
 
-    const auth = getAuth(app);
+    const auth =
+      getAuth(app);
 
-    const provider = new GoogleAuthProvider();
+    const provider =
+      new GoogleAuthProvider();
+
 
     const message =
       document.getElementById("message");
 
 
+    /*
+      EMAIL + PASSWORD
+      BUYER SIGNUP
+    */
+
     document
       .getElementById("signupForm")
-      .addEventListener("submit", async function(event) {
+      .addEventListener(
+        "submit",
+        async function(event) {
 
-        event.preventDefault();
+          event.preventDefault();
 
-        const name =
-          document.getElementById("name").value.trim();
+          const name =
+            document
+              .getElementById("name")
+              .value
+              .trim();
 
-        const email =
-          document.getElementById("email").value.trim();
+          const email =
+            document
+              .getElementById("email")
+              .value
+              .trim();
 
-        const password =
-          document.getElementById("password").value;
+          const country =
+            document
+              .getElementById("country")
+              .value;
 
-        const accountType =
-          document.getElementById("accountType").value;
+          const password =
+            document
+              .getElementById("password")
+              .value;
 
-        message.textContent =
-          "Creating your account...";
 
-        try {
+          message.textContent =
+            "Creating your buyer account...";
 
-          const userCredential =
-            await createUserWithEmailAndPassword(
-              auth,
-              email,
-              password
+
+          try {
+
+            const userCredential =
+              await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
+              );
+
+
+            await updateProfile(
+              userCredential.user,
+              {
+                displayName: name
+              }
             );
 
-          await updateProfile(
-            userCredential.user,
-            {
-              displayName: name
-            }
-          );
 
-          message.textContent =
-            "Account created successfully!";
+            /*
+              Buyer information is prepared
+              for Firestore in the next step.
+            */
 
-          setTimeout(function() {
+            localStorage.setItem(
+              "accountType",
+              "Buyer"
+            );
 
-            window.location.href =
-              "index.html";
+            localStorage.setItem(
+              "country",
+              country
+            );
 
-          }, 1200);
 
-        } catch (error) {
+            message.textContent =
+              "Buyer account created successfully!";
 
-          message.textContent =
-            "Sign up failed: " +
-            error.message;
+
+            setTimeout(
+              function() {
+
+                window.location.href =
+                  "index.html";
+
+              },
+              1200
+            );
+
+
+          } catch (error) {
+
+            message.textContent =
+              "Sign up failed: " +
+              error.message;
+
+          }
 
         }
+      );
 
-      });
 
+    /*
+      GOOGLE BUYER SIGNUP
+    */
 
     document
       .getElementById("googleSignup")
-      .addEventListener("click", async function() {
+      .addEventListener(
+        "click",
+        async function() {
 
-        message.textContent =
-          "Connecting to Google...";
+          message.textContent =
+            "Connecting to Google...";
 
-        try {
 
-          const result =
-            await signInWithPopup(
-              auth,
-              provider
+          try {
+
+            const result =
+              await signInWithPopup(
+                auth,
+                provider
+              );
+
+
+            const user =
+              result.user;
+
+
+            /*
+              Google users are Buyers
+              on this page.
+            */
+
+            localStorage.setItem(
+              "accountType",
+              "Buyer"
             );
 
-          message.textContent =
-            "Google account connected successfully!";
 
-          setTimeout(function() {
+            message.textContent =
+              "Google buyer account connected successfully!";
 
-            window.location.href =
-              "index.html";
 
-          }, 1200);
+            setTimeout(
+              function() {
 
-        } catch (error) {
+                window.location.href =
+                  "index.html";
 
-          message.textContent =
-            "Google sign up failed: " +
-            error.message;
+              },
+              1000
+            );
+
+
+          } catch (error) {
+
+            if (
+              error.code ===
+              "auth/popup-closed-by-user"
+            ) {
+
+              message.textContent =
+                "Google sign-in was cancelled.";
+
+            } else {
+
+              message.textContent =
+                "Google sign up failed: " +
+                error.message;
+
+            }
+
+          }
 
         }
-
-      });
+      );
 
   </script>
 
