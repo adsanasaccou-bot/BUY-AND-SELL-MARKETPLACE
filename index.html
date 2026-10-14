@@ -1,1 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get & Buy Marketplace</title>
+  <style>
+    :root {
+      --purple: #6c3cf0;
+      --purple-dark: #4e27c7;
+      --ink: #201b2c;
+      --muted: #756e83;
+      --bg: #f7f5fc;
+      --line: #e9e3f4;
+      --white: #fff;
+    }
 
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+
+    .topbar {
+      background: #21143f;
+      color: white;
+      padding: 10px 5%;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    header {
+      background: white;
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav {
+      max-width: 1180px;
+      margin: auto;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--purple);
+      white-space: nowrap;
+    }
+    .logo span { color: var(--ink); }
+    .search {
+      flex: 1;
+      display: flex;
+      background: #f5f2fb;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .search input {
+      width: 100%;
+      min-width: 0;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      padding: 13px;
+    }
+    .search button, .primary {
+      background: var(--purple);
+      color: white;
+      border: 0;
+      padding: 12px 16px;
+      font-weight: 700;
+    }
+    .search button { border-radius: 0; }
+    .primary { border-radius: 10px; }
+    .nav-actions { display: flex; gap: 8px; align-items: center; }
+    .ghost {
+      border: 1px solid var(--line);
+      background: white;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+    .hero, .wrap {
+      max-width: 1180px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    .hero { margin-top: 26px; }
+    .hero-card {
+      background: linear-gradient(120deg, #2a1458, #7041ef);
+      border-radius: 24px;
+      padding: 38px;
+      color: white;
+      display: grid;
+      grid-template-columns: 1.3fr .7fr;
+      gap: 20px;
+      align-items: center;
+    }
+    .hero h1 {
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1.08;
+      margin: 0 0 14px;
+    }
+    .hero p { line-height: 1.7; color: #e8dfff; }
+    .hero .primary { background: white; color: var(--purple-dark); }
+    .hero-art { font-size: 80px; text-align: center; }
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 30px 0 16px;
+    }
+    .section-head h2 { margin: 0; font-size: 25px; }
+    .muted { color: var(--muted); font-size: 14px; }
+    .categories {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 2px 0 8px;
+    }
+    .cat {
+      border: 1px solid var(--line);
+      background: white;
+      border-radius: 999px;
+      padding: 10px 16px;
+      white-space: nowrap;
+    }
+    .cat.active, .cat:hover {
+      background: #efe8ff;
+      border-color: #cbb8ff;
+      color: var(--purple-dark);
+    }
+    .filters { display: flex; gap: 10px; flex-wrap: wrap; margin: 14px 0; }
+    .filters select {
+      border: 1px solid var(--line);
+      background: white;
+      padding: 10px 12px;
+      border-radius: 10px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .product {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform .18s, box-shadow .18s;
+    }
+    .product:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px #29105012;
+    }
+    .product-image {
+      height: 170px;
+      background: #f0eaff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 62px;
+      position: relative;
+    }
+    .fav {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      background: white;
+      border: 0;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      font-size: 19px;
+    }
+    .product-body { padding: 14px; }
+    .tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      background: #f1ebff;
+      color: var(--purple-dark);
+      padding: 5px 8px;
+      border-radius: 999px;
+    }
+    .product h3 { font-size: 16px; margin: 10px 0 7px; }
+    .price { font-size: 19px; font-weight: 800; }
+    .product-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-top: 13px;
+    }
+    .add {
+      background: #21143f;
+      color: white;
+      border: 0;
+      border-radius: 9px;
+      padding: 9px 11px;
+      font-weight: 700;
+    }
+    .empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 35px;
+      background: white;
+      border-radius: 14px;
+      color: var(--muted);
+    }
+    .info-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin: 30px 0;
+    }
+    .info {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px;
+    }
+    .info strong { display: block; margin: 8px 0; }
+    footer {
+      background: #21143f;
+      color: white;
+      padding: 28px 20px;
+      text-align: center;
+    }
+    footer p { color: #d4c9e8; font-size: 13px; }
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: #130b25a8;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 30;
+    }
+    .modal-backdrop.show { display: flex; }
+    .modal {
+      background: white;
+      border-radius: 18px;
+      padding: 24px;
+      width: min(460px, 100%);
+      max-height: 90vh;
+      overflow: auto;
+    }
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .modal-head h2 { margin: 0; }
+    .close {
+      border: 0;
+      background: #f2eef9;
+      border-radius: 9px;
+      padding: 8px 11px;
+    }
+    .field { margin: 12px 0; }
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px;
+      outline-color: var(--purple);
+    }
+    .full { width: 100%; margin-top: 8px; }
+    .textlink {
+      border: 0;
+      background: transparent;
+      color: var(--purple-dark);
+      font-weight: 700;
+      padding: 8px;
+    }
+    .notice { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .status { margin-top: 12px; font-size: 13px; line-height: 1.5; }
+    .cart-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid var(--line);
+      padding: 12px 0;
+    }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .nav { flex-wrap: wrap; }
+      .search { order: 3; flex-basis: 100%; }
+      .nav-actions { margin-left: auto; }
+    }
+    @media (max-width: 560px) {
+      .grid, .info-row { grid-template-columns: 1fr; }
+      .hero-card { grid-template-columns: 1fr; padding: 25px; }
+      .hero-art { font-size: 55px; }
+      .nav-actions { flex-wrap: wrap; }
+      .section-head h2 { font-size: 21px; }
+    }
+  </style>
+</head><body>
+  <div class="topbar">
+    <span>Welcome to Get & Buy Marketplace</span>
+    <span>Discover products. Shop with ease.</span>
+  </div>
+
+  <header>
+    <nav class="nav">
+      <a class="logo" href="#">Get & <span>Buy</span></a>
+
+      <form class="search" id="searchForm">
+        <input id="searchInput" type="search"
+          placeholder="Search products..." aria-label="Search products">
+        <button type="submit">Search</button>
+      </form>
+
+      <div class="nav-actions">
+        <button class="ghost" id="favoritesBtn">♡ Favorites</button>
+        <button class="ghost" id="cartBtn">
+          🛒 Cart (<span id="cartCount">0</span>)
+        </button>
+        <button class="primary" id="loginBtn">Login</button>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-card">
+      <div>
+        <h1>Everything you love, all in one place.</h1>
+        <p>Discover great products, explore categories, and find something special at Get & Buy Marketplace.</p>
+        <button class="primary" id="shopNowBtn">Shop Now →</button>
+      </div>
+      <div class="hero-art" aria-hidden="true">🛍️ 📦 🛒</div>
+    </div>
+  </section>
+
+  <main class="wrap">
+    <section class="section-head">
+      <div>
+        <h2>Shop by Category</h2>
+        <p class="muted">Explore products from different categories.</p>
+      </div>
+    </section>
+
+    <div class="categories" id="categories">
+      <button class="cat active" data-category="All">All</button>
+      <button class="cat" data-category="Electronics">Electronics</button>
+      <button class="cat" data-category="Fashion">Fashion</button>
+      <button class="cat" data-category="Home">Home & Living</button>
+      <button class="cat" data-category="Accessories">Accessories</button>
+    </div>
+
+    <div class="filters">
+      <select id="sortSelect" aria-label="Sort products">
+        <option value="featured">Featured products</option>
+        <option value="low">Price: low to high</option>
+        <option value="high">Price: high to low</option>
+        <option value="name">Name: A to Z</option>
+      </select>
+    </div>
+
+    <section class="section-head">
+      <div>
+        <h2 id="productHeading">Featured Products</h2>
+        <p class="muted">Browse our selected products.</p>
+      </div>
+      <button class="textlink" id="showAll">Show all ↗</button>
+    </section>
+
+    <div class="grid" id="productGrid">
+      <div class="empty">Loading products...</div>
+    </div>
+
+    <section class="info-row">
+      <div class="info">
+        <div>🚚</div>
+        <strong>Easy Shopping</strong>
+        <span class="muted">Explore products in one place.</span>
+      </div>
+      <div class="info">
+        <div>🔒</div>
+        <strong>Account Security</strong>
+        <span class="muted">Sign in to manage your account.</span>
+      </div>
+      <div class="info">
+        <div>🏪</div>
+        <strong>Become a Seller</strong>
+        <span class="muted">Create a seller profile to get started.</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <strong>Get & Buy Marketplace</strong>
+    <p>Discover products. Shop with ease.</p>
+    <button class="textlink" id="sellerBtn">Become a Seller</button>
+  </footer>
+
+  <div class="modal-backdrop" id="authBackdrop">
+    <section class="modal">
+      <div class="modal-head">
+        <h2 id="authTitle">Login</h2>
+        <button class="close" data-close="authBackdrop">✕</button>
+      </div>
+
+      <form id="authForm">
+        <div class="field" id="nameField" hidden>
+          <label for="authName">Your name</label>
+          <input id="authName" type="text" autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="authEmail">Email address</label>
+          <input id="authEmail" type="email" required autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="authPassword">Password</label>
+          <input id="authPassword" type="password" required minlength="6"
+            autocomplete="current-password">
+        </div>
+        <button class="primary full" type="submit" id="authSubmit">Login</button>
+      </form>
+
+      <button class="ghost full" id="googleBtn">Continue with Google</button>
+      <button class="textlink full" id="toggleAuth">Create a new account</button>
+      <p class="status" id="authStatus" role="status"></p>
+    </section>
+  </div>
+
+  <div class="modal-backdrop" id="cartBackdrop">
+    <section class="modal">
+      <div class="modal-head">
+        <h2>Your Cart</h2>
+        <button class="close" data-close="cartBackdrop">✕</button>
+      </div>
+      <div id="cartItems"></div>
+      <p><strong>Total: <span id="cartTotal">Rs 0</span></strong></p>
+      <p class="notice">This demo saves your cart in this browser. Online payments and order processing are not enabled.</p>
+      <button class="primary full" id="clearCartBtn">Clear Cart</button>
+    </section>
+  </div>
+
+  <div class="modal-backdrop" id="sellerBackdrop">
+    <section class="modal">
+      <div class="modal-head">
+        <h2>Seller Profile</h2>
+        <button class="close" data-close="sellerBackdrop">✕</button>
+      </div>
+      <form id="sellerForm">
+        <div class="field">
+          <label for="sellerName">Business or seller name</label>
+          <input id="sellerName" required>
+        </div>
+        <div class="field">
+          <label for="sellerPhone">Contact phone</label>
+          <input id="sellerPhone" type="tel" required>
+        </div>
+        <div class="field">
+          <label for="sellerDescription">What do you sell?</label>
+          <textarea id="sellerDescription" rows="3" required></textarea>
+        </div>
+        <button class="primary full" type="submit">Save Seller Profile</button>
+      </form>
+      <p class="status" id="sellerStatus" role="status"></p>
+    </section>
+  </div>
+
+  <script type="module">import { initializeApp } from
+  "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  updateProfile
+} from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDgyL5BzzWdvdTv2Y8ZZo_LX2cIXE3SO-c",
+  authDomain: "get-and-buy-marketplace.firebaseapp.com",
+  projectId: "get-and-buy-marketplace",
+  storageBucket: "get-and-buy-marketplace.firebasestorage.app",
+  messagingSenderId: "67666978418",
+  appId: "1:67666978418:web:f2618b9ac9c133ebdfc4eb",
+  measurementId: "G-XTLMRGQBJM"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const googleProvider = new GoogleAuthProvider();
+
+const $ = (selector) => document.querySelector(selector);
+
+const products = [
+  { id: 1, name: "Wireless Headphones", category: "Electronics", price: 2499, icon: "🎧" },
+  { id: 2, name: "Smart Watch", category: "Electronics", price: 3299, icon: "⌚" },
+  { id: 3, name: "Everyday Sneakers", category: "Fashion", price: 2799, icon: "👟" },
+  { id: 4, name: "Classic Backpack", category: "Fashion", price: 1899, icon: "🎒" },
+  { id: 5, name: "Desk Lamp", category: "Home", price: 1499, icon: "💡" },
+  { id: 6, name: "Coffee Mug Set", category: "Home", price: 899, icon: "☕" },
+  { id: 7, name: "Sunglasses", category: "Accessories", price: 1199, icon: "🕶️" },
+  { id: 8, name: "Travel Bottle", category: "Accessories", price: 699, icon: "🧴" }
+];
+
+let activeCategory = "All";
+let searchTerm = "";
+let favorites = JSON.parse(localStorage.getItem("gb_favorites") || "[]");
+let cart = JSON.parse(localStorage.getItem("gb_cart") || "{}");
+let authMode = "login";
+let currentUser = null;
+let showFavoritesOnly = false;
+
+function money(value) {
+  return "Rs " + Number(value).toLocaleString("en-PK");
+}
+
+function saveLocalData() {
+  localStorage.setItem("gb_favorites", JSON.stringify(favorites));
+  localStorage.setItem("gb_cart", JSON.stringify(cart));
+}
+
+function filteredProducts() {
+  let list = [...products];
+
+  if (activeCategory !== "All") {
+    list = list.filter(p => p.category === activeCategory);
+  }
+
+  if (searchTerm) {
+    list = list.filter(p =>
+      (p.name + " " + p.category).toLowerCase().includes(searchTerm)
+    );
+  }
+
+  if (showFavoritesOnly) {
+    list = list.filter(p => favorites.includes(p.id));
+  }
+
+  const sort = $("#sortSelect").value;
+  if (sort === "low") list.sort((a, b) => a.price - b.price);
+  if (sort === "high") list.sort((a, b) => b.price - a.price);
+  if (sort === "name") list.sort((a, b) => a.name.localeCompare(b.name));
+
+  return list;
+}
+
+function renderProducts() {
+  const list = filteredProducts();
+  const grid = $("#productGrid");
+
+  if (!list.length) {
+    grid.innerHTML = '<div class="empty">No products found. Try another search.</div>';
+    return;
+  }
+
+  grid.innerHTML = list.map(p => `
+    <article class="product">
+      <div class="product-image">
+        <span aria-hidden="true">${p.icon}</span>
+        <button class="fav" data-fav="${p.id}" aria-label="Toggle favorite">
+          ${favorites.includes(p.id) ? "♥" : "♡"}
+        </button>
+      </div>
+      <div class="product-body">
+        <span class="tag">${p.category}</span>
+        <h3>${p.name}</h3>
+        <div class="price">${money(p.price)}</div>
+        <div class="product-bottom">
+          <span class="muted">Demo item</span>
+          <button class="add" data-add="${p.id}">Add to cart</button>
+        </div>
+      </div>
+    </article>
+  `).join("");
+}
+
+function updateCartCount() {
+  const count = Object.values(cart).reduce((sum, qty) => sum + qty, 0);
+  $("#cartCount").textContent = count;
+}
+
+function renderCart() {
+  const items = Object.entries(cart)
+    .map(([id, qty]) => {
+      const product = products.find(p => p.id === Number(id));
+      return product ? { ...product, qty } : null;
+    })
+    .filter(Boolean);
+
+  if (!items.length) {
+    $("#cartItems").innerHTML = '<div class="empty">Your cart is empty.</div>';
+    $("#cartTotal").textContent = money(0);
+    return;
+  }
+
+  let total = 0;
+  $("#cartItems").innerHTML = items.map(item => {
+    total += item.price * item.qty;
+    return `
+      <div class="cart-line">
+        <span>${item.icon} ${item.name}<br>
+          <small>${money(item.price)} × ${item.qty}</small>
+        </span>
+        <span>
+          <button class="ghost" data-qty-minus="${item.id}">−</button>
+          <button class="ghost" data-qty-plus="${item.id}">+</button>
+        </span>
+      </div>
+    `;
+  }).join("");
+
+  $("#cartTotal").textContent = money(total);
+}function openModal(id) {
+  $("#" + id).classList.add("show");
+}
+
+function closeModal(id) {
+  $("#" + id).classList.remove("show");
+}
+
+function setAuthMode(mode) {
+  authMode = mode;
+  const isSignup = mode === "signup";
+
+  $("#authTitle").textContent = isSignup ? "Create Account" : "Login";
+  $("#authSubmit").textContent = isSignup ? "Create Account" : "Login";
+  $("#nameField").hidden = !isSignup;
+  $("#authName").required = isSignup;
+  $("#authPassword").autocomplete = isSignup ? "new-password" : "current-password";
+  $("#toggleAuth").textContent = isSignup
+    ? "Already have an account? Login"
+    : "Create a new account";
+  $("#authStatus").textContent = "";
+}
+
+function showStatus(selector, message) {
+  $(selector).textContent = message;
+}
+
+async function saveProfile(user, extra = {}) {
+  if (!user) return;
+
+  await setDoc(doc(db, "users", user.uid), {
+    uid: user.uid,
+    name: user.displayName || extra.name || "",
+    email: user.email || "",
+    updatedAt: serverTimestamp()
+  }, { merge: true });
+}
+
+$("#authForm").addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const email = $("#authEmail").value.trim();
+  const password = $("#authPassword").value;
+  const name = $("#authName").value.trim();
+
+  showStatus("#authStatus", "Please wait...");
+
+  try {
+    if (authMode === "signup") {
+      const result = await createUserWithEmailAndPassword(auth, email, password);
+
+      if (name) {
+        await updateProfile(result.user, { displayName: name });
+      }
+
+      await saveProfile(result.user, { name });
+      showStatus("#authStatus", "Account created successfully.");
+      closeModal("authBackdrop");
+    } else {
+      await signInWithEmailAndPassword(auth, email, password);
+      showStatus("#authStatus", "Login successful.");
+      closeModal("authBackdrop");
+    }
+  } catch (error) {
+    showStatus("#authStatus", error.message);
+  }
+});
+
+$("#googleBtn").addEventListener("click", async () => {
+  showStatus("#authStatus", "Opening Google sign-in...");
+
+  try {
+    const result = await signInWithPopup(auth, googleProvider);
+    await saveProfile(result.user);
+    closeModal("authBackdrop");
+  } catch (error) {
+    showStatus("#authStatus", error.message);
+  }
+});
+
+$("#toggleAuth").addEventListener("click", () => {
+  setAuthMode(authMode === "login" ? "signup" : "login");
+});
+
+onAuthStateChanged(auth, async user => {
+  currentUser = user;
+
+  if (user) {
+    $("#loginBtn").textContent = "Logout";
+    try {
+      await saveProfile(user);
+    } catch (error) {
+      console.error("Could not save profile:", error);
+    }
+  } else {
+    $("#loginBtn").textContent = "Login";
+  }
+});
+
+$("#loginBtn").addEventListener("click", async () => {
+  if (currentUser) {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      alert(error.message);
+    }
+  } else {
+    setAuthMode("login");
+    openModal("authBackdrop");
+  }
+});
+
+$("#searchForm").addEventListener("submit", event => {
+  event.preventDefault();
+  searchTerm = $("#searchInput").value.trim().toLowerCase();
+  showFavoritesOnly = false;
+  $("#productHeading").textContent = searchTerm
+    ? "Search Results"
+    : "Featured Products";
+  renderProducts();
+});
+
+$("#categories").addEventListener("click", event => {
+  const button = event.target.closest("[data-category]");
+  if (!button) return;
+
+  activeCategory = button.dataset.category;
+  showFavoritesOnly = false;
+
+  document.querySelectorAll(".cat").forEach(cat => {
+    cat.classList.toggle("active", cat === button);
+  });
+
+  $("#productHeading").textContent =
+    activeCategory === "All" ? "Featured Products" : activeCategory;
+
+  renderProducts();
+});
+
+$("#sortSelect").addEventListener("change", renderProducts);
+
+$("#showAll").addEventListener("click", () => {
+  activeCategory = "All";
+  searchTerm = "";
+  showFavoritesOnly = false;
+  $("#searchInput").value = "";
+  $("#productHeading").textContent = "Featured Products";
+  document.querySelectorAll(".cat").forEach(cat => {
+    cat.classList.toggle("active", cat.dataset.category === "All");
+  });
+  renderProducts();
+});
+
+$("#shopNowBtn").addEventListener("click", () => {
+  $("#productHeading").scrollIntoView({ behavior: "smooth" });
+});
+
+$("#productGrid").addEventListener("click", event => {
+  const addButton = event.target.closest("[data-add]");
+  const favButton = event.target.closest("[data-fav]");
+
+  if (addButton) {
+    const id = addButton.dataset.add;
+    cart[id] = (cart[id] || 0) + 1;
+    saveLocalData();
+    updateCartCount();
+    addButton.textContent = "Added ✓";
+    setTimeout(() => {
+      if (addButton.isConnected) addButton.textContent = "Add to cart";
+    }, 800);
+  }
+
+  if (favButton) {
+    const id = Number(favButton.dataset.fav);
+
+    if (favorites.includes(id)) {
+      favorites = favorites.filter(item => item !== id);
+    } else {
+      favorites.push(id);
+    }
+
+    saveLocalData();
+    renderProducts();
+  }
+});
+
+$("#favoritesBtn").addEventListener("click", () => {
+  showFavoritesOnly = true;
+  activeCategory = "All";
+  searchTerm = "";
+  $("#searchInput").value = "";
+  $("#productHeading").textContent = "Your Favorites";
+  renderProducts();
+});$("#cartBtn").addEventListener("click", () => {
+  renderCart();
+  openModal("cartBackdrop");
+});
+
+$("#cartItems").addEventListener("click", event => {
+  const plus = event.target.closest("[data-qty-plus]");
+  const minus = event.target.closest("[data-qty-minus]");
+
+  if (plus) {
+    const id = plus.dataset.qtyPlus;
+    cart[id] = (cart[id] || 0) + 1;
+  }
+
+  if (minus) {
+    const id = minus.dataset.qtyMinus;
+    cart[id] = (cart[id] || 0) - 1;
+    if (cart[id] <= 0) delete cart[id];
+  }
+
+  saveLocalData();
+  updateCartCount();
+  renderCart();
+});
+
+$("#clearCartBtn").addEventListener("click", () => {
+  cart = {};
+  saveLocalData();
+  updateCartCount();
+  renderCart();
+});
+
+$("#sellerBtn").addEventListener("click", async () => {
+  if (!currentUser) {
+    setAuthMode("login");
+    openModal("authBackdrop");
+    showStatus("#authStatus", "Please log in before creating a seller profile.");
+    return;
+  }
+
+  try {
+    const snapshot = await getDoc(doc(db, "sellers", currentUser.uid));
+
+    if (snapshot.exists()) {
+      const seller = snapshot.data();
+      $("#sellerName").value = seller.name || "";
+      $("#sellerPhone").value = seller.phone || "";
+      $("#sellerDescription").value = seller.description || "";
+    } else {
+      $("#sellerName").value = currentUser.displayName || "";
+      $("#sellerPhone").value = "";
+      $("#sellerDescription").value = "";
+    }
+
+    showStatus("#sellerStatus", "");
+    openModal("sellerBackdrop");
+  } catch (error) {
+    showStatus("#sellerStatus", error.message);
+    openModal("sellerBackdrop");
+  }
+});
+
+$("#sellerForm").addEventListener("submit", async event => {
+  event.preventDefault();
+
+  if (!currentUser) {
+    showStatus("#sellerStatus", "Please log in first.");
+    return;
+  }
+
+  const sellerData = {
+    uid: currentUser.uid,
+    name: $("#sellerName").value.trim(),
+    phone: $("#sellerPhone").value.trim(),
+    description: $("#sellerDescription").value.trim(),
+    email: currentUser.email || "",
+    updatedAt: serverTimestamp()
+  };
+
+  showStatus("#sellerStatus", "Saving seller profile...");
+
+  try {
+    await setDoc(doc(db, "sellers", currentUser.uid), sellerData, {
+      merge: true
+    });
+
+    showStatus("#sellerStatus", "Seller profile saved successfully.");
+  } catch (error) {
+    showStatus("#sellerStatus", error.message);
+  }
+});
+
+document.querySelectorAll("[data-close]").forEach(button => {
+  button.addEventListener("click", () => {
+    closeModal(button.dataset.close);
+  });
+});
+
+document.querySelectorAll(".modal-backdrop").forEach(backdrop => {
+  backdrop.addEventListener("click", event => {
+    if (event.target === backdrop) {
+      closeModal(backdrop.id);
+    }
+  });
+});
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") {
+    document.querySelectorAll(".modal-backdrop.show").forEach(modal => {
+      closeModal(modal.id);
+    });
+  }
+});
+
+renderProducts();
+updateCartCount();
+</script>
+</body>
+</html>
