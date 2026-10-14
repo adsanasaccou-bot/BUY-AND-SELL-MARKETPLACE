@@ -3,594 +3,959 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Get and Buy Marketplace - Discover products, explore handmade crafts, fashion, home products and electronics.">
   <title>Get and Buy Marketplace</title>
 
   <style>
-    * { box-sizing: border-box; }
+    :root {
+      --primary: #5b45e0;
+      --primary-dark: #4532bd;
+      --dark: #19172b;
+      --text: #514f61;
+      --muted: #858397;
+      --light: #f7f6fc;
+      --white: #ffffff;
+      --border: #eae8f3;
+      --radius: 18px;
+      --shadow: 0 8px 30px rgba(30, 20, 80, 0.07);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
 
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      color: #222;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--white);
+      color: var(--dark);
+      line-height: 1.6;
     }
 
-    header {
-      background: #123b67;
-      color: white;
-      padding: 24px 16px;
-      text-align: center;
-      position: relative;
-    }
-
-    header h1 { margin: 0 0 10px; font-size: 30px; }
-    header p { margin: 0; }
-
-    .profile-area {
-      position: absolute;
-      right: 18px;
-      top: 18px;
-    }
-
-    .profile-icon {
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      border: 2px solid white;
-      background: #087f5b;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 19px;
-      font-weight: bold;
+    a {
       text-decoration: none;
+      color: inherit;
+    }
+
+    button, input {
+      font: inherit;
+    }
+
+    button, a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button {
       cursor: pointer;
     }
 
-    .login-icon { background: white; color: #123b67; }
-
-    nav {
-      background: #0c2948;
-      padding: 15px;
-      text-align: center;
+    .container {
+      width: min(1180px, 92%);
+      margin: auto;
     }
 
-    nav a {
+    .topbar {
+      background: var(--dark);
       color: white;
-      text-decoration: none;
-      margin: 0 10px;
-      font-weight: bold;
+      text-align: center;
+      padding: 9px 12px;
+      font-size: 13px;
     }
 
-    nav a:hover { text-decoration: underline; }
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.97);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
 
-    .account-message {
-      text-align: center;
-      padding: 10px;
-      background: #e3f7ed;
-      color: #087f5b;
-      display: none;
+    .header-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 23px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      white-space: nowrap;
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 23px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .nav a:hover {
+      color: var(--primary);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      padding: 12px 17px;
+      font-size: 14px;
+      font-weight: 700;
+      transition: 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: white;
+      border-color: var(--border);
+      color: var(--dark);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--primary);
+      color: var(--primary);
     }
 
     .hero {
-      text-align: center;
-      padding: 40px 16px 30px;
-      background: white;
+      padding: 65px 0;
+      background:
+        radial-gradient(circle at 90% 20%, #e8e3ff 0, transparent 35%),
+        linear-gradient(135deg, #f8f7ff, #f1efff);
     }
 
-    .hero h2 { font-size: 32px; margin-bottom: 12px; }
-    .hero p { color: #555; font-size: 17px; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: center;
+      gap: 40px;
+    }
 
-    .hero-button {
+    .eyebrow {
       display: inline-block;
-      margin-top: 15px;
-      background: #087f5b;
-      color: white;
-      text-decoration: none;
-      padding: 13px 22px;
-      border-radius: 6px;
-      font-weight: bold;
+      background: #e8e3ff;
+      color: var(--primary-dark);
+      border-radius: 30px;
+      padding: 7px 13px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 17px;
     }
 
-    .search-area {
-      background: white;
-      padding: 0 16px 30px;
-      text-align: center;
+    .hero h1 {
+      max-width: 680px;
+      font-size: clamp(36px, 5vw, 59px);
+      line-height: 1.12;
+      letter-spacing: -2px;
+      margin-bottom: 20px;
     }
 
-    .search-area h2 { margin: 0 0 14px; font-size: 23px; }
+    .hero h1 span {
+      color: var(--primary);
+    }
+
+    .hero p {
+      max-width: 560px;
+      color: var(--text);
+      font-size: 16px;
+      margin-bottom: 25px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .hero-art {
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #dcd5ff, #f5eaff);
+      border-radius: 35px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-art::before,
+    .hero-art::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+    }
+
+    .hero-art::before {
+      width: 240px;
+      height: 240px;
+      top: -80px;
+      right: -40px;
+    }
+
+    .hero-art::after {
+      width: 150px;
+      height: 150px;
+      bottom: -55px;
+      left: -20px;
+    }
+
+    .hero-emoji {
+      font-size: clamp(100px, 16vw, 175px);
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 15px 12px rgba(50, 30, 120, 0.12));
+    }
+
+    .search-wrap {
+      margin-top: -25px;
+      position: relative;
+      z-index: 2;
+    }
 
     .search-box {
       display: flex;
-      max-width: 650px;
-      margin: auto;
-      gap: 8px;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: white;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      border-radius: 15px;
+    }
+
+    .search-icon {
+      padding-left: 8px;
+      font-size: 21px;
     }
 
     .search-box input {
       flex: 1;
+      width: 100%;
       min-width: 0;
-      padding: 14px;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      font-size: 16px;
+      border: 0;
+      outline: none;
+      color: var(--dark);
+      background: transparent;
+      padding: 10px 0;
     }
 
-    .search-box button {
-      padding: 14px 20px;
-      background: #123b67;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
+    .section {
+      padding: 65px 0;
     }
 
-    .search-help {
-      color: #667085;
-      font-size: 13px;
-      margin: 10px 0 0;
+    .section-soft {
+      background: var(--light);
     }
 
-    .container {
-      max-width: 1100px;
-      margin: 30px auto;
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 27px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(25px, 3vw, 34px);
+      letter-spacing: -0.8px;
+      line-height: 1.2;
+      margin-bottom: 7px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .text-link {
+      color: var(--primary);
+      font-size: 14px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .product-card {
+      position: relative;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .product-image {
+      height: 185px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f0edff;
+      font-size: 77px;
+      position: relative;
+    }
+
+    .product-card:nth-child(4n+2) .product-image {
+      background: #fff0e7;
+    }
+
+    .product-card:nth-child(4n+3) .product-image {
+      background: #e7f7ef;
+    }
+
+    .product-card:nth-child(4n+4) .product-image {
+      background: #fff5d9;
+    }
+
+    .product-tag {
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      background: white;
+      color: var(--primary-dark);
+      padding: 5px 9px;
+      border-radius: 30px;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .favorite-btn {
+      position: absolute;
+      right: 12px;
+      top: 12px;
+      width: 35px;
+      height: 35px;
+      border: 0;
+      border-radius: 50%;
+      background: white;
+      font-size: 19px;
+      color: #777;
+    }
+
+    .favorite-btn.active {
+      color: #e33f65;
+    }
+
+    .product-info {
       padding: 16px;
     }
 
-    .product-section { margin-bottom: 38px; }
-
-    .section-heading {
-      text-align: center;
-      font-size: 27px;
-      margin: 0 0 10px;
+    .product-category {
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      font-size: 10px;
+      font-weight: 800;
     }
 
-    .intro {
-      text-align: center;
-      color: #666;
-      margin-bottom: 25px;
-      line-height: 1.5;
+    .product-info h3 {
+      font-size: 16px;
+      margin: 5px 0;
+      line-height: 1.4;
     }
 
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 18px;
+    .product-description {
+      color: var(--muted);
+      font-size: 12px;
+      min-height: 38px;
+      margin-bottom: 12px;
     }
 
-    .card {
-      background: white;
-      padding: 22px;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    .product-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
     }
 
-    .card h3 { margin-top: 10px; }
-
-    .card p {
-      color: #555;
-      line-height: 1.5;
-    }
-
-    .tag {
-      display: inline-block;
-      background: #e3f7ed;
-      color: #087f5b;
-      padding: 5px 9px;
-      border-radius: 4px;
+    .price {
       font-size: 13px;
-      font-weight: bold;
+      font-weight: 800;
     }
 
-    .product-button {
-      display: inline-block;
-      background: #123b67;
+    .details-btn {
+      border: 0;
+      background: #efedff;
+      color: var(--primary-dark);
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .details-btn:hover {
+      background: #ded8ff;
+    }
+
+    .explore-banner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 20px;
+      padding: 35px;
+      border-radius: 22px;
+      background: linear-gradient(120deg, #241d49, #5b45e0);
       color: white;
-      text-decoration: none;
-      padding: 10px 15px;
-      border-radius: 6px;
-      margin-top: 8px;
-      border: none;
-      cursor: pointer;
     }
 
-    .favorite-button {
-      background: #f1f3f5;
-      color: #b42318;
-      border: 1px solid #ddd;
-      padding: 9px 12px;
-      border-radius: 6px;
-      margin: 8px 0 0 5px;
-      cursor: pointer;
+    .explore-banner h2 {
+      font-size: clamp(25px, 3vw, 35px);
+      line-height: 1.25;
+      margin-bottom: 9px;
     }
 
-    .empty-message {
+    .explore-banner p {
+      color: #e2defe;
+      font-size: 14px;
+    }
+
+    .explore-banner .btn {
+      background: white;
+      color: var(--primary-dark);
+      white-space: nowrap;
+    }
+
+    .empty-state {
       display: none;
       text-align: center;
-      color: #667085;
-      padding: 25px;
-      background: white;
-      border-radius: 10px;
+      padding: 35px 15px;
+      color: var(--muted);
+      border: 1px dashed var(--border);
+      border-radius: 15px;
+      margin-top: 20px;
     }
 
-    .features {
+    .empty-state strong {
+      display: block;
+      color: var(--dark);
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    /* Categories are intentionally placed after all product sections. */
+
+    .category-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 15px;
-      margin-top: 25px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 20px;
     }
 
-    .feature {
+    .category-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 12px;
+      min-height: 165px;
+      padding: 22px 12px;
       background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: 0.2s;
+    }
+
+    .category-card:hover,
+    .category-card.selected {
+      border-color: var(--primary);
+      background: #f4f1ff;
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    .category-icon {
+      width: 65px;
+      height: 65px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 18px;
+      background: #eeebff;
+      font-size: 34px;
+    }
+
+    .category-card:nth-child(2) .category-icon {
+      background: #ffece4;
+    }
+
+    .category-card:nth-child(3) .category-icon {
+      background: #e5f6eb;
+    }
+
+    .category-card:nth-child(4) .category-icon {
+      background: #fff3d5;
+    }
+
+    .category-card strong {
+      font-size: 15px;
+    }
+
+    .category-note {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .sell-cta {
+      padding: 48px 0;
+      background: #f2efff;
+    }
+
+    .sell-cta-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .sell-cta h2 {
+      font-size: clamp(24px, 3vw, 32px);
+      margin-bottom: 7px;
+    }
+
+    .sell-cta p {
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .footer {
+      background: #171528;
+      color: white;
+      padding: 45px 0 20px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 35px;
+      margin-bottom: 30px;
+    }
+
+    .footer h3 {
+      font-size: 15px;
+      margin-bottom: 14px;
+    }
+
+    .footer p,
+    .footer a {
+      color: #c5c2d6;
+      font-size: 13px;
+    }
+
+    .footer p {
+      max-width: 390px;
+      margin-top: 12px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .footer a:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      padding-top: 18px;
+      border-top: 1px solid #343147;
+      text-align: center;
+      color: #aaa7be;
+      font-size: 12px;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
       padding: 20px;
+      align-items: center;
+      justify-content: center;
+      background: rgba(15, 12, 35, 0.65);
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-content {
+      width: min(440px, 100%);
+      position: relative;
+      background: white;
+      border-radius: 20px;
+      padding: 28px;
       text-align: center;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
     }
 
-    .feature h3 { color: #123b67; }
-
-    .sell-callout {
-      background: #eaf3ff;
-      padding: 25px;
-      border-radius: 12px;
-      text-align: center;
-      margin-top: 35px;
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      border: 0;
+      background: transparent;
+      font-size: 27px;
+      color: var(--muted);
     }
 
-    .sell-callout h2 { color: #123b67; }
-
-    .sell-callout a {
-      display: inline-block;
-      background: #087f5b;
-      color: white;
-      text-decoration: none;
-      padding: 12px 20px;
-      border-radius: 6px;
-      font-weight: bold;
-      margin-top: 8px;
+    .modal-emoji {
+      font-size: 75px;
+      margin-bottom: 10px;
     }
 
-    footer {
-      text-align: center;
-      background: #123b67;
-      color: white;
-      padding: 25px 15px;
-      margin-top: 40px;
+    .modal-content h2 {
+      font-size: 24px;
+      margin-bottom: 8px;
     }
 
-    footer p { margin: 6px; }
+    .modal-content p {
+      color: var(--text);
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
 
-    @media (max-width: 600px) {
-      header { padding: 75px 16px 24px; }
-      header h1 { font-size: 25px; }
-      .hero h2 { font-size: 26px; }
-      nav a { display: inline-block; margin: 5px 7px; }
-      .profile-area { right: 15px; top: 15px; }
-      .profile-icon { width: 42px; height: 42px; }
-      .search-box button { padding: 12px; }
+    @media (max-width: 950px) {
+      .nav {
+        gap: 13px;
+      }
+
+      .product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .hero-grid {
+        gap: 25px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .header-inner {
+        min-height: 66px;
+        flex-wrap: wrap;
+        padding: 12px 0;
+        gap: 12px;
+      }
+
+      .logo {
+        font-size: 20px;
+      }
+
+      .nav {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 9px 18px;
+        padding-top: 5px;
+      }
+
+      .nav a {
+        font-size: 12px;
+      }
+
+      .header-actions .btn {
+        padding: 9px 11px;
+        font-size: 12px;
+      }
+
+      .hero {
+        padding: 42px 0 45px;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        letter-spacing: -1px;
+      }
+
+      .hero-art {
+        min-height: 210px;
+      }
+
+      .search-box {
+        gap: 7px;
+        padding: 8px;
+      }
+
+      .search-box .btn {
+        padding: 10px 12px;
+      }
+
+      .section {
+        padding: 45px 0;
+      }
+
+      .section-heading {
+        align-items: start;
+      }
+
+      .section-heading h2 {
+        font-size: 25px;
+      }
+
+      .product-grid {
+        gap: 12px;
+      }
+
+      .product-image {
+        height: 140px;
+        font-size: 58px;
+      }
+
+      .product-info {
+        padding: 12px;
+      }
+
+      .product-info h3 {
+        font-size: 14px;
+      }
+
+      .product-description {
+        font-size: 11px;
+      }
+
+      .product-bottom {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .details-btn {
+        width: 100%;
+      }
+
+      .explore-banner {
+        grid-template-columns: 1fr;
+        padding: 25px;
+      }
+
+      .explore-banner .btn {
+        justify-self: start;
+      }
+
+      .category-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .category-card {
+        min-height: 145px;
+      }
+
+      .sell-cta-inner {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+      }
+
+      .footer-grid > div:first-child {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .product-image {
+        height: 190px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <header>
-    <div class="profile-area">
-      <a id="profileIcon" class="profile-icon login-icon"
-         href="login.html" title="Login">👤</a>
-    </div>
-
-    <h1>Get and Buy Marketplace</h1>
-    <p>A place to discover products from around the world</p>
-  </header>
-
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#products">Products</a>
-    <a href="#categories">Categories</a>
-    <a href="#sell">Start Selling</a>
-  </nav>
-
-  <div class="account-message" id="accountMessage">
-    Welcome to Get and Buy Marketplace!
+  <div class="topbar">
+    Discover great finds and support independent sellers!
   </div>
 
-  <section class="hero" id="home">
-    <h2>Buy and Sell Around the World</h2>
-    <p>Discover products and connect with sellers worldwide.</p>
-    <a class="hero-button" href="#products">Explore Products</a>
-  </section>
+  <header class="header">
+    <div class="container header-inner">
 
-  <!-- PRODUCT SEARCH -->
-  <section class="search-area">
-    <h2>Find Your Product</h2>
-    <form class="search-box" id="searchForm">
-      <input id="searchInput" type="search"
-             placeholder="Search products by name..."
-             aria-label="Search products">
-      <button type="submit">Search</button>
-    </form>
-    <p class="search-help">Search products currently displayed on this page.</p>
-  </section>
+      <a class="logo" href="#home">Get <span>&</span> Buy</a>
 
-  <main class="container">
+      <nav class="nav">
+        <a href="#home">Home</a>
+        <a href="#featured">Products</a>
+        <a href="#more">Explore</a>
+        <a href="#categories">Categories</a>
+        <a href="#sell">Sell With Us</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn btn-outline" href="login.html">Log In</a>
+        <a class="btn btn-primary" href="signup.html">Sign Up</a>
+      </div>
+
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO SECTION -->
+
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+
+        <div>
+          <span class="eyebrow">WELCOME TO GET & BUY</span>
+
+          <h1>
+            Discover Great Finds.
+            <span>Shop Your Way.</span>
+          </h1>
+
+          <p>
+            Explore handmade treasures, fashion, home essentials and
+            electronics in one convenient marketplace.
+          </p>
+
+          <div class="hero-buttons">
+            <a class="btn btn-primary" href="#featured">Explore Products →</a>
+            <a class="btn btn-outline" href="signup.html">Start Selling</a>
+          </div>
+        </div>
+
+        <div class="hero-art" aria-label="Marketplace shopping illustration">
+          <div class="hero-emoji">🛍️</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SEARCH -->
+
+    <div class="container search-wrap">
+      <form class="search-box" id="searchForm">
+        <span class="search-icon">⌕</span>
+
+        <input
+          type="search"
+          id="searchInput"
+          placeholder="Search products or categories..."
+          aria-label="Search products"
+        >
+
+        <button class="btn btn-primary" type="submit">Search</button>
+      </form>
+    </div>
 
     <!-- FEATURED PRODUCTS -->
-    <section class="product-section" id="products">
-      <h2 class="section-heading">Featured Products</h2>
-      <p class="intro">Discover selected products from our marketplace.</p>
 
-      <div class="products">
-        <article class="card product-card" data-name="Handmade Accessories" data-category="Handmade">
-          <span class="tag">Featured</span>
-          <h3>Handmade Accessories</h3>
-          <p>Discover unique handmade accessories from independent sellers.</p>
-          <p><strong>Price:</strong> Coming Soon</p>
-          <button class="product-button" onclick="viewProduct('Handmade Accessories')">View Details</button>
-          <button class="favorite-button" onclick="addFavorite('Handmade Accessories')">♥ Favorite</button>
-        </article>
+    <section class="section" id="featured">
+      <div class="container">
 
-        <article class="card product-card" data-name="Fashion and Clothing" data-category="Fashion">
-          <span class="tag">Featured</span>
-          <h3>Fashion and Clothing</h3>
-          <p>Explore fashion and clothing products from different sellers.</p>
-          <p><strong>Price:</strong> Coming Soon</p>
-          <button class="product-button" onclick="viewProduct('Fashion and Clothing')">View Details</button>
-          <button class="favorite-button" onclick="addFavorite('Fashion and Clothing')">♥ Favorite</button>
-        </article>
-
-        <article class="card product-card" data-name="Home and Crafts" data-category="Home">
-          <span class="tag">Featured</span>
-          <h3>Home and Crafts</h3>
-          <p>Find creative and useful products for your home.</p>
-          <p><strong>Price:</strong> Coming Soon</p>
-          <button class="product-button" onclick="viewProduct('Home and Crafts')">View Details</button>
-          <button class="favorite-button" onclick="addFavorite('Home and Crafts')">♥ Favorite</button>
-        </article>
-      </div>
-    </section>
-
-    <p class="empty-message" id="emptyMessage">
-      No matching products found. Try another product name.
-    </p>
-
-    <!-- LATEST PRODUCTS -->
-    <section class="product-section" id="latest">
-      <h2 class="section-heading">Latest Products</h2>
-      <p class="intro">Explore more product categories.</p>
-
-      <div class="products">
-        <article class="card product-card" data-name="Mobile Phones" data-category="Electronics">
-          <span class="tag">Electronics</span>
-          <h3>Mobile Phones</h3>
-          <p>Discover phones and mobile accessories.</p>
-          <p><strong>Price:</strong> Coming Soon</p>
-          <button class="product-button" onclick="viewProduct('Mobile Phones')">View Details</button>
-          <button class="favorite-button" onclick="addFavorite('Mobile Phones')">♥ Favorite</button>
-        </article>
-
-        <article class="card product-card" data-name="Shoes and Sneakers" data-category="Fashion">
-          <span class="tag">Fashion</span>
-          <h3>Shoes and Sneakers</h3>
-          <p>Explore casual shoes and stylish footwear.</p>
-          <p><strong>Price:</strong> Coming Soon</p>
-          <button class="product-button" onclick="viewProduct('Shoes and Sneakers')">View Details</button>
-          <button class="favorite-button" onclick="addFavorite('Shoes and Sneakers')">♥ Favorite</button>
-        </article>
-
-        <article class="card product-card" data-name="Home Decor" data-category="Home">
-          <span class="tag">Home</span>
-          <h3>Home Decor</h3>
-          <p>Ideas and products to decorate your home.</p>
-          <p><strong>Price:</strong> Coming Soon</p>
-          <button class="product-button" onclick="viewProduct('Home Decor')">View Details</button>
-          <button class="favorite-button" onclick="addFavorite('Home Decor')">♥ Favorite</button>
-        </article>
-      </div>
-    </section>
-
-    <!-- POPULAR CATEGORIES -->
-    <section class="product-section" id="popular">
-      <h2 class="section-heading">Popular Categories</h2>
-      <p class="intro">Browse products by category.</p>
-
-      <div class="features" id="categories">
-        <div class="feature">
-          <h3>Handmade</h3>
-          <p>Unique handmade products.</p>
+        <div class="section-heading">
+          <div>
+            <h2>Featured Products</h2>
+            <p>Explore a selection of marketplace finds.</p>
+          </div>
+          <a href="#latest" class="text-link">More products ↓</a>
         </div>
-        <div class="feature">
-          <h3>Fashion</h3>
-          <p>Fashion and clothing.</p>
-        </div>
-        <div class="feature">
-          <h3>Home & Crafts</h3>
-          <p>Creative products for your home.</p>
-        </div>
-        <div class="feature">
-          <h3>Electronics</h3>
-          <p>Phones and useful electronics.</p>
-        </div>
-      </div>
-    </section>
 
-    <!-- MORE PRODUCT IDEAS -->
-    <section class="product-section" id="more-products">
-      <h2 class="section-heading">More to Explore</h2>
-      <p class="intro">More categories will be available as products are added.</p>
+        <div class="product-grid">
 
-      <div class="products">
-        <article class="card product-card" data-name="Bags and Backpacks" data-category="Accessories">
-          <span class="tag">Accessories</span>
-          <h3>Bags and Backpacks</h3>
-          <p>Browse everyday bags and backpacks.</p>
-          <p><strong>Price:</strong> Coming Soon</p>
-          <button class="product-button" onclick="viewProduct('Bags and Backpacks')">View Details</button>
-          <button class="favorite-button" onclick="addFavorite('Bags and Backpacks')">♥ Favorite</button>
-        </article>
+          <article class="product-card"
+            data-category="Electronics"
+            data-name="Wireless Headphones"
+            data-description="Enjoy your favorite audio with a stylish wireless headphone concept.">
+            <div class="product-image">
+              <span class="product-tag">Featured</span>
+              <button class="favorite-btn" type="button" aria-label="Add Wireless Headphones to favorites">♡</button>
+              🎧
+            </div>
+            <div class="product-info">
+              <span class="product-category">Electronics</span>
+              <h3>Wireless Headphones</h3>
+              <p class="product-description">Everyday audio and entertainment.</p>
+              <div class="product-bottom">
+                <span class="price">Price coming soon</span>
+                <button class="details-btn" type="button">View Details</button>
+              </div>
+            </div>
+          </article>
 
-        <article class="card product-card" data-name="Sports Accessories" data-category="Sports">
-          <span class="tag">Sports</span>
-          <h3>Sports Accessories</h3>
-          <p>Explore accessories for sports and exercise.</p>
-          <p><strong>Price:</strong> Coming Soon</p>
-          <button class="product-button" onclick="viewProduct('Sports Accessories')">View Details</button>
-          <button class="favorite-button" onclick="addFavorite('Sports Accessories')">♥ Favorite</button>
-        </article>
+          <article class="product-card"
+            data-category="Fashion"
+            data-name="Classic Fashion Bag"
+            data-description="A versatile bag concept for everyday outings and casual looks.">
+            <div class="product-image">
+              <span class="product-tag">Featured</span>
+              <button class="favorite-btn" type="button" aria-label="Add Classic Fashion Bag to favorites">♡</button>
+              👜
+            </div>
+            <div class="product-info">
+              <span class="product-category">Fashion</span>
+              <h3>Classic Fashion Bag</h3>
+              <p class="product-description">A stylish everyday accessory.</p>
+              <div class="product-bottom">
+                <span class="price">Price coming soon</span>
+                <button class="details-btn" type="button">View Details</button>
+              </div>
+            </div>
+          </article>
 
-        <article class="card product-card" data-name="Books and Stationery" data-category="Books">
-          <span class="tag">Books</span>
-          <h3>Books and Stationery</h3>
-          <p>Find books and everyday stationery items.</p>
-          <p><strong>Price:</strong> Coming Soon</p>
-          <button class="product-button" onclick="viewProduct('Books and Stationery')">View Details</button>
-          <button class="favorite-button" onclick="addFavorite('Books and Stationery')">♥ Favorite</button>
-        </article>
-      </div>
-    </section>
-
-    <!-- ONE ACCOUNT FOR BUYING AND SELLING -->
-    <section class="sell-callout" id="sell">
-      <h2>Have Something to Sell?</h2>
-      <p>Use your existing marketplace account to prepare to list your products.</p>
-      <a href="profile.html" id="sellLink">Go to My Account</a>
-    </section>
-
-  </main>
-
-  <footer>
-    <p><strong>Get and Buy Marketplace</strong></p>
-    <p>Buy and Sell Around the World</p>
-    <p>© 2026 Get and Buy Marketplace</p>
-  </footer>
-
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-    import {
-      getAuth,
-      onAuthStateChanged
-    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyDgyL5BzzWdvdTv2Y8ZZo_LX2cIXE3SO-c",
-      authDomain: "get-and-buy-marketplace.firebaseapp.com",
-      projectId: "get-and-buy-marketplace",
-      storageBucket: "get-and-buy-marketplace.firebasestorage.app",
-      messagingSenderId: "67666978418",
-      appId: "1:67666978418:web:f2618b9ac9c133ebdfc4eb",
-      measurementId: "G-XTLMRGQBJM"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    const profileIcon = document.getElementById("profileIcon");
-    const accountMessage = document.getElementById("accountMessage");
-    const sellLink = document.getElementById("sellLink");
-
-    onAuthStateChanged(auth, function(user) {
-      if (user) {
-        profileIcon.href = "profile.html";
-        profileIcon.classList.remove("login-icon");
-
-        const name = user.displayName || user.email || "U";
-        profileIcon.textContent = name.charAt(0).toUpperCase();
-        profileIcon.title = "My Profile";
-
-        accountMessage.style.display = "block";
-        accountMessage.textContent = "Welcome, " + name + "!";
-        sellLink.href = "profile.html";
-        sellLink.textContent = "Go to My Account";
-      } else {
-        profileIcon.href = "login.html";
-        profileIcon.classList.add("login-icon");
-        profileIcon.textContent = "👤";
-        profileIcon.title = "Login";
-
-        accountMessage.style.display = "none";
-        sellLink.href = "login.html";
-        sellLink.textContent = "Log In to Get Started";
-      }
-    });
-
-    // Search the product cards currently displayed on this page.
-    const searchForm = document.getElementById("searchForm");
-    const searchInput = document.getElementById("searchInput");
-    const emptyMessage = document.getElementById("emptyMessage");
-    const productCards = Array.from(document.querySelectorAll(".product-card"));
-    const productSections = Array.from(document.querySelectorAll(".product-section"));
-
-    function searchProducts() {
-      const query = searchInput.value.trim().toLowerCase();
-      let matches = 0;
-
-      productCards.forEach(card => {
-        const name = (card.dataset.name || "").toLowerCase();
-        const category = (card.dataset.category || "").toLowerCase();
-        const text = card.textContent.toLowerCase();
-        const found = !query || name.includes(query) ||
-                      category.includes(query) || text.includes(query);
-
-        card.style.display = found ? "" : "none";
-        if (found) matches++;
-      });
-
-      productSections.forEach(section => {
-        const visibleCards = section.querySelectorAll(
-          ".product-card:not([style*='display: none'])"
-        );
-        const hasCards = section.querySelectorAll(".product-card").length > 0;
-
-        if (hasCards) {
-          section.style.display = visibleCards.length ? "" : "none";
-        } else {
-          section.style.display = "";
-        }
-      });
-
-      emptyMessage.style.display = matches ? "none" : "block";
-      if (query) {
-        document.getElementById("products").scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
-      }
-    }
-
-    searchForm.addEventListener("submit", event => {
-      event.preventDefault();
-      searchProducts();
-    });
-
-    searchInput.addEventListener("input", searchProducts);
-
-    window.viewProduct = function(productName) {
-      const user = auth.currentUser;
-
-      if (!user) {
-        alert("Please log in first to continue.");
-        window.location.href = "login.html";
-        return;
-      }
-
-      alert(productName + ": detailed product pages and real prices will be added in a later step.");
-    };
-
-    window.addFavorite = function(productName) {
-      const user = auth.currentUser;
-
-      if (!user) {
-        alert("Please log in first to use favorites.");
-        window.location.href = "login.html";
-        return;
-      }
-
-      alert(productName + " favorites will be connected to the database in a later step.");
-    };
-  </script>
-
-</body>
-</html>
+          <article class="product-card"
+            data-category="Home & Craft"
+            data-name="Decorative Home Vase"
+            data-description="A decorative vase concept to add a finishing touch to your home.">
+            <div class="product-image">
+              <span class="product-tag">Featured</span>
+              <button class="favorite-btn" type="button" aria-label="Add Decorative Home Vase to favorites">♡</button>
+              🏺
+            </div>
+            <div class="product-info">
+              <span class="product-category">Home & Craft</span>
+              <h3>D
