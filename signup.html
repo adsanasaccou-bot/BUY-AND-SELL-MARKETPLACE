@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Sign Up - Get and Buy Marketplace</title>
 
   <style>
@@ -60,6 +59,11 @@
       background: white;
     }
 
+    button {
+      cursor: pointer;
+      font-size: 16px;
+    }
+
     .signup-btn {
       width: 100%;
       padding: 13px;
@@ -67,8 +71,7 @@
       color: white;
       border: none;
       border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
+      font-weight: bold;
     }
 
     .google-btn {
@@ -76,4 +79,334 @@
       padding: 13px;
       margin-top: 12px;
       background: white;
-      color: #
+      color: #333;
+      border: 1px solid #bbb;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    .divider {
+      text-align: center;
+      margin: 22px 0;
+      color: #888;
+    }
+
+    .login {
+      text-align: center;
+      margin-top: 22px;
+    }
+
+    .login a {
+      color: #087f5b;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .back {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: #123b67;
+      text-decoration: none;
+    }
+
+    #message {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+      min-height: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="signup-box">
+
+    <h1 class="logo">Get and Buy</h1>
+
+    <p class="subtitle">
+      Create your marketplace account
+    </p>
+
+    <form id="signupForm">
+
+      <label for="name">
+        Full Name
+      </label>
+
+      <input
+        type="text"
+        id="name"
+        placeholder="Enter your full name"
+        required
+      >
+
+      <label for="email">
+        Email Address
+      </label>
+
+      <input
+        type="email"
+        id="email"
+        placeholder="Enter your email"
+        required
+      >
+
+      <label for="country">
+        Country
+      </label>
+
+      <select id="country" required>
+
+        <option value="">
+          Select your country
+        </option>
+
+        <option value="Pakistan">
+          Pakistan
+        </option>
+
+        <option value="United States">
+          United States
+        </option>
+
+        <option value="United Kingdom">
+          United Kingdom
+        </option>
+
+        <option value="Canada">
+          Canada
+        </option>
+
+        <option value="Australia">
+          Australia
+        </option>
+
+        <option value="Germany">
+          Germany
+        </option>
+
+        <option value="France">
+          France
+        </option>
+
+        <option value="Italy">
+          Italy
+        </option>
+
+        <option value="Other">
+          Other
+        </option>
+
+      </select>
+
+      <label for="accountType">
+        Account Type
+      </label>
+
+      <select id="accountType" required>
+
+        <option value="">
+          Select account type
+        </option>
+
+        <option value="Buyer">
+          Buyer
+        </option>
+
+        <option value="Seller">
+          Seller
+        </option>
+
+      </select>
+
+      <label for="password">
+        Password
+      </label>
+
+      <input
+        type="password"
+        id="password"
+        placeholder="Create a password"
+        minlength="6"
+        required
+      >
+
+      <button
+        class="signup-btn"
+        type="submit">
+        Create Account
+      </button>
+
+    </form>
+
+    <div class="divider">
+      OR
+    </div>
+
+    <button
+      class="google-btn"
+      id="googleSignup">
+      Continue with Google
+    </button>
+
+    <div id="message"></div>
+
+    <div class="login">
+      Already have an account?
+      <a href="login.html">
+        Login
+      </a>
+    </div>
+
+    <a
+      class="back"
+      href="index.html">
+      ← Back to Home
+    </a>
+
+  </div>
+
+
+  <script type="module">
+
+    import {
+      initializeApp
+    } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
+
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      updateProfile,
+      GoogleAuthProvider,
+      signInWithPopup
+    } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
+
+
+    const firebaseConfig = {
+
+      apiKey: "AIzaSyDgy5L5BzzWdvdTv2Y8ZZo_LX2cIXE3SO-c",
+
+      authDomain: "get-and-buy-marketplace.firebaseapp.com",
+
+      projectId: "get-and-buy-marketplace",
+
+      storageBucket: "get-and-buy-marketplace.firebasestorage.app",
+
+      messagingSenderId: "67666978418",
+
+      appId: "1:67666978418:web:f2618b9ac9c133ebdfc4eb",
+
+      measurementId: "G-XTLMRGQBJM"
+
+    };
+
+
+    const app = initializeApp(firebaseConfig);
+
+    const auth = getAuth(app);
+
+    const provider = new GoogleAuthProvider();
+
+    const message =
+      document.getElementById("message");
+
+
+    document
+      .getElementById("signupForm")
+      .addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const name =
+          document.getElementById("name").value.trim();
+
+        const email =
+          document.getElementById("email").value.trim();
+
+        const password =
+          document.getElementById("password").value;
+
+        const accountType =
+          document.getElementById("accountType").value;
+
+        message.textContent =
+          "Creating your account...";
+
+        try {
+
+          const userCredential =
+            await createUserWithEmailAndPassword(
+              auth,
+              email,
+              password
+            );
+
+          await updateProfile(
+            userCredential.user,
+            {
+              displayName: name
+            }
+          );
+
+          message.textContent =
+            "Account created successfully!";
+
+          setTimeout(function() {
+
+            window.location.href =
+              "index.html";
+
+          }, 1200);
+
+        } catch (error) {
+
+          message.textContent =
+            "Sign up failed: " +
+            error.message;
+
+        }
+
+      });
+
+
+    document
+      .getElementById("googleSignup")
+      .addEventListener("click", async function() {
+
+        message.textContent =
+          "Connecting to Google...";
+
+        try {
+
+          const result =
+            await signInWithPopup(
+              auth,
+              provider
+            );
+
+          message.textContent =
+            "Google account connected successfully!";
+
+          setTimeout(function() {
+
+            window.location.href =
+              "index.html";
+
+          }, 1200);
+
+        } catch (error) {
+
+          message.textContent =
+            "Google sign up failed: " +
+            error.message;
+
+        }
+
+      });
+
+  </script>
+
+</body>
+</html>
