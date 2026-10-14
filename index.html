@@ -3,150 +3,386 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Get and Buy Marketplace</title>
+
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background: #f4f6f8;
       color: #222;
     }
+
     header {
       background: #123b67;
       color: white;
       padding: 24px 16px;
       text-align: center;
     }
-    header h1 { margin: 0 0 10px; }
-    header p { margin: 0; }
+
+    header h1 {
+      margin: 0 0 10px;
+      font-size: 30px;
+    }
+
+    header p {
+      margin: 0;
+    }
+
     nav {
       background: #0c2948;
-      padding: 14px;
+      padding: 15px;
       text-align: center;
     }
+
     nav a {
       color: white;
       text-decoration: none;
-      margin: 0 12px;
+      margin: 0 10px;
+      font-weight: bold;
     }
-    .hero {
-      text-align: center;
-      padding: 45px 16px;
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .account-buttons {
+      margin-top: 15px;
+    }
+
+    .account-buttons a {
+      display: inline-block;
+      text-decoration: none;
+      padding: 10px 18px;
+      margin: 5px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    .login {
       background: white;
+      color: #123b67;
     }
-    .hero h2 { font-size: 30px; }
-    .hero p { color: #555; }
-    button {
+
+    .signup {
       background: #087f5b;
       color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 16px;
     }
+
+    .hero {
+      text-align: center;
+      padding: 55px 16px;
+      background: white;
+    }
+
+    .hero h2 {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      color: #555;
+      font-size: 17px;
+    }
+
+    .hero-button {
+      display: inline-block;
+      margin-top: 15px;
+      background: #087f5b;
+      color: white;
+      text-decoration: none;
+      padding: 13px 22px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
     .container {
-      max-width: 1000px;
+      max-width: 1050px;
       margin: 30px auto;
       padding: 16px;
     }
+
+    .container > h2 {
+      text-align: center;
+      font-size: 28px;
+    }
+
+    .intro {
+      text-align: center;
+      color: #666;
+      margin-bottom: 25px;
+    }
+
     .products {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 18px;
     }
+
     .card {
       background: white;
       padding: 22px;
       border-radius: 10px;
-      box-shadow: 0 2px 10px #00000010;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
     }
-    .card h3 { margin-top: 0; }
+
+    .card h3 {
+      margin-top: 10px;
+    }
+
+    .card p {
+      color: #555;
+      line-height: 1.5;
+    }
+
     .tag {
       display: inline-block;
       background: #e3f7ed;
       color: #087f5b;
       padding: 5px 9px;
       border-radius: 4px;
+      font-size: 13px;
+      font-weight: bold;
     }
+
+    .product-button {
+      display: inline-block;
+      background: #123b67;
+      color: white;
+      text-decoration: none;
+      padding: 10px 15px;
+      border-radius: 6px;
+      margin-top: 8px;
+    }
+
+    .sell-section {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .sell-section h2 {
+      margin-top: 0;
+    }
+
+    .sell-button {
+      display: inline-block;
+      background: #087f5b;
+      color: white;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+
     footer {
       text-align: center;
       background: #123b67;
       color: white;
-      padding: 20px;
-      margin-top: 35px;
+      padding: 25px 15px;
+      margin-top: 40px;
+    }
+
+    footer p {
+      margin: 6px;
+    }
+
+    @media (max-width: 600px) {
+
+      header h1 {
+        font-size: 25px;
+      }
+
+      .hero h2 {
+        font-size: 26px;
+      }
+
+      nav a {
+        display: inline-block;
+        margin: 5px 7px;
+      }
     }
   </style>
 </head>
+
 <body>
+
   <header>
+
     <h1>Get and Buy Marketplace</h1>
+
     <p>A place to discover products from around the world</p>
-  </header>
 
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#products">Products</a>
-    <a href="#sell">Sell with Us</a>
-  </nav>
+    <div class="account-buttons">
 
-  <section class="hero" id="home">
-    <h2>Buy and Sell Around the World</h2>
-    <p>Discover products and connect with sellers worldwide.</p>
-    <button onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
-      Explore Products
-    </button>
-  </section>
+      <a class="login" href="login.html">
+        Login
+      </a>
 
-  <main class="container">
-    <h2 id="products">Featured Products</h2>
-    <p>Sample listings — these are demonstrations, not real offers.</p>
+      <a class="signup" href="signup.html">
+        Sign Up
+      </a>
 
-    <div class="products">
-      <article class="card">
-        <span class="tag">Sample</span>
-        <h3>Handmade Accessories</h3>
-        <p>Discover unique handmade items.</p>
-        <p><strong>Price:</strong> Coming Soon</p>
-        <button onclick="alert('Product inquiries will be available in a future version.')">
-          View Details
-        </button>
-      </article>
-
-      <article class="card">
-        <span class="tag">Sample</span>
-        <h3>Fashion and Clothing</h3>
-        <p>Explore fashion products from sellers.</p>
-        <p><strong>Price:</strong> Coming Soon</p>
-        <button onclick="alert('Product inquiries will be available in a future version.')">
-          View Details
-        </button>
-      </article>
-
-      <article class="card">
-        <span class="tag">Sample</span>
-        <h3>Home and Crafts</h3>
-        <p>Find creative items for your home.</p>
-        <p><strong>Price:</strong> Coming Soon</p>
-        <button onclick="alert('Product inquiries will be available in a future version.')">
-          View Details
-        </button>
-      </article>
     </div>
 
-    <section class="card" id="sell" style="margin-top:25px">
-      <h2>Want to Sell Your Products?</h2>
-      <p>Our marketplace is in its early demo stage. Seller registration will be added in a future version.</p>
-      <button onclick="alert('Seller registration is coming soon!')">
-        Seller Registration — Coming Soon
-      </button>
+  </header>
+
+
+  <nav>
+
+    <a href="#home">Home</a>
+
+    <a href="#products">Products</a>
+
+    <a href="#sell">Sell With Us</a>
+
+  </nav>
+
+
+  <section class="hero" id="home">
+
+    <h2>Buy and Sell Around the World</h2>
+
+    <p>
+      Discover products and connect with sellers worldwide.
+    </p>
+
+    <a class="hero-button" href="#products">
+      Explore Products
+    </a>
+
+  </section>
+
+
+  <main class="container">
+
+    <h2 id="products">
+      Featured Products
+    </h2>
+
+    <p class="intro">
+      Discover products from sellers around the world.
+    </p>
+
+
+    <div class="products">
+
+      <article class="card">
+
+        <span class="tag">
+          Featured
+        </span>
+
+        <h3>
+          Handmade Accessories
+        </h3>
+
+        <p>
+          Discover unique handmade accessories from independent sellers.
+        </p>
+
+        <p>
+          <strong>Price:</strong> Coming Soon
+        </p>
+
+        <a class="product-button" href="login.html">
+          View Details
+        </a>
+
+      </article>
+
+
+      <article class="card">
+
+        <span class="tag">
+          Featured
+        </span>
+
+        <h3>
+          Fashion and Clothing
+        </h3>
+
+        <p>
+          Explore fashion and clothing products from different sellers.
+        </p>
+
+        <p>
+          <strong>Price:</strong> Coming Soon
+        </p>
+
+        <a class="product-button" href="login.html">
+          View Details
+        </a>
+
+      </article>
+
+
+      <article class="card">
+
+        <span class="tag">
+          Featured
+        </span>
+
+        <h3>
+          Home and Crafts
+        </h3>
+
+        <p>
+          Find creative and useful products for your home.
+        </p>
+
+        <p>
+          <strong>Price:</strong> Coming Soon
+        </p>
+
+        <a class="product-button" href="login.html">
+          View Details
+        </a>
+
+      </article>
+
+    </div>
+
+
+    <section class="card sell-section" id="sell">
+
+      <h2>
+        Want to Sell Your Products?
+      </h2>
+
+      <p>
+        Join our marketplace and reach buyers around the world.
+      </p>
+
+      <a class="sell-button" href="signup.html">
+        Become a Seller
+      </a>
+
     </section>
+
   </main>
 
+
   <footer>
-    <p>Get and Buy Marketplace</p>
-    <p>© 2026 Get and Buy Marketplace</p>
+
+    <p>
+      <strong>Get and Buy Marketplace</strong>
+    </p>
+
+    <p>
+      Buy and Sell Around the World
+    </p>
+
+    <p>
+      © 2026 Get and Buy Marketplace
+    </p>
+
   </footer>
+
 </body>
 </html>
