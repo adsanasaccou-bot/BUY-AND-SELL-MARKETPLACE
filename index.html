@@ -3,956 +3,799 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Get & Buy Marketplace</title>
+
+  <title>Get and Buy Marketplace</title>
+
   <style>
-    :root {
-      --purple: #6c3cf0;
-      --purple-dark: #4e27c7;
-      --ink: #201b2c;
-      --muted: #756e83;
-      --bg: #f7f5fc;
-      --line: #e9e3f4;
-      --white: #fff;
+    * {
+      box-sizing: border-box;
     }
 
-    * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
-      color: var(--ink);
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      color: #222;
     }
-    button, input, select, textarea { font: inherit; }
-    button { cursor: pointer; }
-    a { color: inherit; text-decoration: none; }
 
-    .topbar {
-      background: #21143f;
-      color: white;
-      padding: 10px 5%;
-      font-size: 13px;
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
     header {
-      background: white;
-      border-bottom: 1px solid var(--line);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-    .nav {
-      max-width: 1180px;
-      margin: auto;
-      padding: 16px 20px;
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
-    .logo {
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--purple);
-      white-space: nowrap;
-    }
-    .logo span { color: var(--ink); }
-    .search {
-      flex: 1;
-      display: flex;
-      background: #f5f2fb;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-    .search input {
-      width: 100%;
-      min-width: 0;
-      border: 0;
-      outline: 0;
-      background: transparent;
-      padding: 13px;
-    }
-    .search button, .primary {
-      background: var(--purple);
+      background: #123b67;
       color: white;
-      border: 0;
-      padding: 12px 16px;
-      font-weight: 700;
-    }
-    .search button { border-radius: 0; }
-    .primary { border-radius: 10px; }
-    .nav-actions { display: flex; gap: 8px; align-items: center; }
-    .ghost {
-      border: 1px solid var(--line);
-      background: white;
-      padding: 10px 12px;
-      border-radius: 10px;
-      font-weight: 700;
-    }
-    .hero, .wrap {
-      max-width: 1180px;
-      margin-left: auto;
-      margin-right: auto;
-      padding-left: 20px;
-      padding-right: 20px;
-    }
-    .hero { margin-top: 26px; }
-    .hero-card {
-      background: linear-gradient(120deg, #2a1458, #7041ef);
-      border-radius: 24px;
-      padding: 38px;
-      color: white;
-      display: grid;
-      grid-template-columns: 1.3fr .7fr;
-      gap: 20px;
-      align-items: center;
-    }
-    .hero h1 {
-      font-size: clamp(30px, 4vw, 48px);
-      line-height: 1.08;
-      margin: 0 0 14px;
-    }
-    .hero p { line-height: 1.7; color: #e8dfff; }
-    .hero .primary { background: white; color: var(--purple-dark); }
-    .hero-art { font-size: 80px; text-align: center; }
-    .section-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin: 30px 0 16px;
-    }
-    .section-head h2 { margin: 0; font-size: 25px; }
-    .muted { color: var(--muted); font-size: 14px; }
-    .categories {
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      padding: 2px 0 8px;
-    }
-    .cat {
-      border: 1px solid var(--line);
-      background: white;
-      border-radius: 999px;
-      padding: 10px 16px;
-      white-space: nowrap;
-    }
-    .cat.active, .cat:hover {
-      background: #efe8ff;
-      border-color: #cbb8ff;
-      color: var(--purple-dark);
-    }
-    .filters { display: flex; gap: 10px; flex-wrap: wrap; margin: 14px 0; }
-    .filters select {
-      border: 1px solid var(--line);
-      background: white;
-      padding: 10px 12px;
-      border-radius: 10px;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 18px;
-    }
-    .product {
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      overflow: hidden;
-      transition: transform .18s, box-shadow .18s;
-    }
-    .product:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 28px #29105012;
-    }
-    .product-image {
-      height: 170px;
-      background: #f0eaff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 62px;
+      padding: 24px 16px;
+      text-align: center;
       position: relative;
     }
-    .fav {
+
+    header h1 {
+      margin: 0 0 10px;
+      font-size: 30px;
+    }
+
+    header p {
+      margin: 0;
+    }
+
+    /* PROFILE ICON */
+    .profile-area {
       position: absolute;
-      right: 10px;
-      top: 10px;
-      background: white;
-      border: 0;
+      right: 18px;
+      top: 18px;
+    }
+
+    .profile-icon {
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
-      width: 36px;
-      height: 36px;
-      font-size: 19px;
-    }
-    .product-body { padding: 14px; }
-    .tag {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 700;
-      background: #f1ebff;
-      color: var(--purple-dark);
-      padding: 5px 8px;
-      border-radius: 999px;
-    }
-    .product h3 { font-size: 16px; margin: 10px 0 7px; }
-    .price { font-size: 19px; font-weight: 800; }
-    .product-bottom {
+      border: 2px solid white;
+      background: #087f5b;
+      color: white;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      margin-top: 13px;
-    }
-    .add {
-      background: #21143f;
-      color: white;
-      border: 0;
-      border-radius: 9px;
-      padding: 9px 11px;
-      font-weight: 700;
-    }
-    .empty {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 35px;
-      background: white;
-      border-radius: 14px;
-      color: var(--muted);
-    }
-    .info-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin: 30px 0;
-    }
-    .info {
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 18px;
-    }
-    .info strong { display: block; margin: 8px 0; }
-    footer {
-      background: #21143f;
-      color: white;
-      padding: 28px 20px;
-      text-align: center;
-    }
-    footer p { color: #d4c9e8; font-size: 13px; }
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: #130b25a8;
-      display: none;
       align-items: center;
       justify-content: center;
-      padding: 18px;
-      z-index: 30;
+      font-size: 19px;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
     }
-    .modal-backdrop.show { display: flex; }
-    .modal {
+
+    .profile-icon:hover {
+      opacity: 0.9;
+    }
+
+    .login-icon {
       background: white;
-      border-radius: 18px;
-      padding: 24px;
-      width: min(460px, 100%);
-      max-height: 90vh;
-      overflow: auto;
+      color: #123b67;
     }
-    .modal-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
+
+    nav {
+      background: #0c2948;
+      padding: 15px;
+      text-align: center;
     }
-    .modal-head h2 { margin: 0; }
-    .close {
-      border: 0;
-      background: #f2eef9;
-      border-radius: 9px;
-      padding: 8px 11px;
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: bold;
     }
-    .field { margin: 12px 0; }
-    .field label {
-      display: block;
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 6px;
+
+    nav a:hover {
+      text-decoration: underline;
     }
-    .field input, .field select, .field textarea {
-      width: 100%;
-      border: 1px solid var(--line);
+
+    .account-message {
+      text-align: center;
+      padding: 10px;
+      background: #e3f7ed;
+      color: #087f5b;
+      display: none;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 55px 16px;
+      background: white;
+    }
+
+    .hero h2 {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      color: #555;
+      font-size: 17px;
+    }
+
+    .hero-button {
+      display: inline-block;
+      margin-top: 15px;
+      background: #087f5b;
+      color: white;
+      text-decoration: none;
+      padding: 13px 22px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 1050px;
+      margin: 30px auto;
+      padding: 16px;
+    }
+
+    .container > h2 {
+      text-align: center;
+      font-size: 28px;
+    }
+
+    .intro {
+      text-align: center;
+      color: #666;
+      margin-bottom: 25px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(220px, 1fr)
+      );
+      gap: 18px;
+    }
+
+    .card {
+      background: white;
+      padding: 22px;
       border-radius: 10px;
-      padding: 12px;
-      outline-color: var(--purple);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
     }
-    .full { width: 100%; margin-top: 8px; }
-    .textlink {
-      border: 0;
-      background: transparent;
-      color: var(--purple-dark);
-      font-weight: 700;
-      padding: 8px;
+
+    .card h3 {
+      margin-top: 10px;
     }
-    .notice { font-size: 13px; color: var(--muted); line-height: 1.5; }
-    .status { margin-top: 12px; font-size: 13px; line-height: 1.5; }
-    .cart-line {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      border-bottom: 1px solid var(--line);
-      padding: 12px 0;
+
+    .card p {
+      color: #555;
+      line-height: 1.5;
     }
-    @media (max-width: 900px) {
-      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .nav { flex-wrap: wrap; }
-      .search { order: 3; flex-basis: 100%; }
-      .nav-actions { margin-left: auto; }
+
+    .tag {
+      display: inline-block;
+      background: #e3f7ed;
+      color: #087f5b;
+      padding: 5px 9px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: bold;
     }
-    @media (max-width: 560px) {
-      .grid, .info-row { grid-template-columns: 1fr; }
-      .hero-card { grid-template-columns: 1fr; padding: 25px; }
-      .hero-art { font-size: 55px; }
-      .nav-actions { flex-wrap: wrap; }
-      .section-head h2 { font-size: 21px; }
+
+    .product-button {
+      display: inline-block;
+      background: #123b67;
+      color: white;
+      text-decoration: none;
+      padding: 10px 15px;
+      border-radius: 6px;
+      margin-top: 8px;
+      border: none;
+      cursor: pointer;
     }
-  </style>
-</head><body>
-  <div class="topbar">
-    <span>Welcome to Get & Buy Marketplace</span>
-    <span>Discover products. Shop with ease.</span>
-  </div>
 
-  <header>
-    <nav class="nav">
-      <a class="logo" href="#">Get & <span>Buy</span></a>
+    .favorite-button {
+      background: #f1f3f5;
+      color: #b42318;
+      border: 1px solid #ddd;
+      padding: 9px 12px;
+      border-radius: 6px;
+      margin-left: 5px;
+      cursor: pointer;
+    }
 
-      <form class="search" id="searchForm">
-        <input id="searchInput" type="search"
-          placeholder="Search products..." aria-label="Search products">
-        <button type="submit">Search</button>
-      </form>
+    .sell-section {
+      margin-top: 30px;
+      text-align: center;
+    }
 
-      <div class="nav-actions">
-        <button class="ghost" id="favoritesBtn">♡ Favorites</button>
-        <button class="ghost" id="cartBtn">
-          🛒 Cart (<span id="cartCount">0</span>)
-        </button>
-        <button class="primary" id="loginBtn">Login</button>
-      </div>
-    </nav>
-  </header>
+    .sell-section h2 {
+      margin-top: 0;
+    }
 
-  <section class="hero">
-    <div class="hero-card">
-      <div>
-        <h1>Everything you love, all in one place.</h1>
-        <p>Discover great products, explore categories, and find something special at Get & Buy Marketplace.</p>
-        <button class="primary" id="shopNowBtn">Shop Now →</button>
-      </div>
-      <div class="hero-art" aria-hidden="true">🛍️ 📦 🛒</div>
-    </div>
-  </section>
+    .sell-button {
+      display: inline-block;
+      background: #087f5b;
+      color: white;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-weight: bold;
+      margin-top: 8px;
+    }
 
-  <main class="wrap">
-    <section class="section-head">
-      <div>
-        <h2>Shop by Category</h2>
-        <p class="muted">Explore products from different categories.</p>
-      </div>
-    </section>
+    .features {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      margin-top: 30px;
+    }
 
-    <div class="categories" id="categories">
-      <button class="cat active" data-category="All">All</button>
-      <button class="cat" data-category="Electronics">Electronics</button>
-      <button class="cat" data-category="Fashion">Fashion</button>
-      <button class="cat" data-category="Home">Home & Living</button>
-      <button class="cat" data-category="Accessories">Accessories</button>
-    </div>
+    .feature {
+      background: white;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
 
-    <div class="filters">
-      <select id="sortSelect" aria-label="Sort products">
-        <option value="featured">Featured products</option>
-        <option value="low">Price: low to high</option>
-        <option value="high">Price: high to low</option>
-        <option value="name">Name: A to Z</option>
-      </select>
-    </div>
+    .feature h3 {
+      color: #123b67;
+    }
 
-    <section class="section-head">
-      <div>
-        <h2 id="productHeading">Featured Products</h2>
-        <p class="muted">Browse our selected products.</p>
-      </div>
-      <button class="textlink" id="showAll">Show all ↗</button>
-    </section>
+    footer {
+      text-align: center;
+      background: #123b67;
+      color: white;
+      padding: 25px 15px;
+      margin-top: 40px;
+    }
 
-    <div class="grid" id="productGrid">
-      <div class="empty">Loading products...</div>
-    </div>
+    footer p {
+      margin: 6px;
+    }
 
-    <section class="info-row">
-      <div class="info">
-        <div>🚚</div>
-        <strong>Easy Shopping</strong>
-        <span class="muted">Explore products in one place.</span>
-      </div>
-      <div class="info">
-        <div>🔒</div>
-        <strong>Account Security</strong>
-        <span class="muted">Sign in to manage your account.</span>
-      </div>
-      <div class="info">
-        <div>🏪</div>
-        <strong>Become a Seller</strong>
-        <span class="muted">Create a seller profile to get started.</span>
-      </div>
-    </section>
-  </main>
+    @media (max-width: 600px) {
 
-  <footer>
-    <strong>Get & Buy Marketplace</strong>
-    <p>Discover products. Shop with ease.</p>
-    <button class="textlink" id="sellerBtn">Become a Seller</button>
-  </footer>
-
-  <div class="modal-backdrop" id="authBackdrop">
-    <section class="modal">
-      <div class="modal-head">
-        <h2 id="authTitle">Login</h2>
-        <button class="close" data-close="authBackdrop">✕</button>
-      </div>
-
-      <form id="authForm">
-        <div class="field" id="nameField" hidden>
-          <label for="authName">Your name</label>
-          <input id="authName" type="text" autocomplete="name">
-        </div>
-        <div class="field">
-          <label for="authEmail">Email address</label>
-          <input id="authEmail" type="email" required autocomplete="email">
-        </div>
-        <div class="field">
-          <label for="authPassword">Password</label>
-          <input id="authPassword" type="password" required minlength="6"
-            autocomplete="current-password">
-        </div>
-        <button class="primary full" type="submit" id="authSubmit">Login</button>
-      </form>
-
-      <button class="ghost full" id="googleBtn">Continue with Google</button>
-      <button class="textlink full" id="toggleAuth">Create a new account</button>
-      <p class="status" id="authStatus" role="status"></p>
-    </section>
-  </div>
-
-  <div class="modal-backdrop" id="cartBackdrop">
-    <section class="modal">
-      <div class="modal-head">
-        <h2>Your Cart</h2>
-        <button class="close" data-close="cartBackdrop">✕</button>
-      </div>
-      <div id="cartItems"></div>
-      <p><strong>Total: <span id="cartTotal">Rs 0</span></strong></p>
-      <p class="notice">This demo saves your cart in this browser. Online payments and order processing are not enabled.</p>
-      <button class="primary full" id="clearCartBtn">Clear Cart</button>
-    </section>
-  </div>
-
-  <div class="modal-backdrop" id="sellerBackdrop">
-    <section class="modal">
-      <div class="modal-head">
-        <h2>Seller Profile</h2>
-        <button class="close" data-close="sellerBackdrop">✕</button>
-      </div>
-      <form id="sellerForm">
-        <div class="field">
-          <label for="sellerName">Business or seller name</label>
-          <input id="sellerName" required>
-        </div>
-        <div class="field">
-          <label for="sellerPhone">Contact phone</label>
-          <input id="sellerPhone" type="tel" required>
-        </div>
-        <div class="field">
-          <label for="sellerDescription">What do you sell?</label>
-          <textarea id="sellerDescription" rows="3" required></textarea>
-        </div>
-        <button class="primary full" type="submit">Save Seller Profile</button>
-      </form>
-      <p class="status" id="sellerStatus" role="status"></p>
-    </section>
-  </div>
-
-  <script type="module">import { initializeApp } from
-  "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-
-import {
-  getAuth,
-  onAuthStateChanged,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup,
-  signOut,
-  updateProfile
-} from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
-
-import {
-  getFirestore,
-  doc,
-  setDoc,
-  getDoc,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyDgyL5BzzWdvdTv2Y8ZZo_LX2cIXE3SO-c",
-  authDomain: "get-and-buy-marketplace.firebaseapp.com",
-  projectId: "get-and-buy-marketplace",
-  storageBucket: "get-and-buy-marketplace.firebasestorage.app",
-  messagingSenderId: "67666978418",
-  appId: "1:67666978418:web:f2618b9ac9c133ebdfc4eb",
-  measurementId: "G-XTLMRGQBJM"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const googleProvider = new GoogleAuthProvider();
-
-const $ = (selector) => document.querySelector(selector);
-
-const products = [
-  { id: 1, name: "Wireless Headphones", category: "Electronics", price: 2499, icon: "🎧" },
-  { id: 2, name: "Smart Watch", category: "Electronics", price: 3299, icon: "⌚" },
-  { id: 3, name: "Everyday Sneakers", category: "Fashion", price: 2799, icon: "👟" },
-  { id: 4, name: "Classic Backpack", category: "Fashion", price: 1899, icon: "🎒" },
-  { id: 5, name: "Desk Lamp", category: "Home", price: 1499, icon: "💡" },
-  { id: 6, name: "Coffee Mug Set", category: "Home", price: 899, icon: "☕" },
-  { id: 7, name: "Sunglasses", category: "Accessories", price: 1199, icon: "🕶️" },
-  { id: 8, name: "Travel Bottle", category: "Accessories", price: 699, icon: "🧴" }
-];
-
-let activeCategory = "All";
-let searchTerm = "";
-let favorites = JSON.parse(localStorage.getItem("gb_favorites") || "[]");
-let cart = JSON.parse(localStorage.getItem("gb_cart") || "{}");
-let authMode = "login";
-let currentUser = null;
-let showFavoritesOnly = false;
-
-function money(value) {
-  return "Rs " + Number(value).toLocaleString("en-PK");
-}
-
-function saveLocalData() {
-  localStorage.setItem("gb_favorites", JSON.stringify(favorites));
-  localStorage.setItem("gb_cart", JSON.stringify(cart));
-}
-
-function filteredProducts() {
-  let list = [...products];
-
-  if (activeCategory !== "All") {
-    list = list.filter(p => p.category === activeCategory);
-  }
-
-  if (searchTerm) {
-    list = list.filter(p =>
-      (p.name + " " + p.category).toLowerCase().includes(searchTerm)
-    );
-  }
-
-  if (showFavoritesOnly) {
-    list = list.filter(p => favorites.includes(p.id));
-  }
-
-  const sort = $("#sortSelect").value;
-  if (sort === "low") list.sort((a, b) => a.price - b.price);
-  if (sort === "high") list.sort((a, b) => b.price - a.price);
-  if (sort === "name") list.sort((a, b) => a.name.localeCompare(b.name));
-
-  return list;
-}
-
-function renderProducts() {
-  const list = filteredProducts();
-  const grid = $("#productGrid");
-
-  if (!list.length) {
-    grid.innerHTML = '<div class="empty">No products found. Try another search.</div>';
-    return;
-  }
-
-  grid.innerHTML = list.map(p => `
-    <article class="product">
-      <div class="product-image">
-        <span aria-hidden="true">${p.icon}</span>
-        <button class="fav" data-fav="${p.id}" aria-label="Toggle favorite">
-          ${favorites.includes(p.id) ? "♥" : "♡"}
-        </button>
-      </div>
-      <div class="product-body">
-        <span class="tag">${p.category}</span>
-        <h3>${p.name}</h3>
-        <div class="price">${money(p.price)}</div>
-        <div class="product-bottom">
-          <span class="muted">Demo item</span>
-          <button class="add" data-add="${p.id}">Add to cart</button>
-        </div>
-      </div>
-    </article>
-  `).join("");
-}
-
-function updateCartCount() {
-  const count = Object.values(cart).reduce((sum, qty) => sum + qty, 0);
-  $("#cartCount").textContent = count;
-}
-
-function renderCart() {
-  const items = Object.entries(cart)
-    .map(([id, qty]) => {
-      const product = products.find(p => p.id === Number(id));
-      return product ? { ...product, qty } : null;
-    })
-    .filter(Boolean);
-
-  if (!items.length) {
-    $("#cartItems").innerHTML = '<div class="empty">Your cart is empty.</div>';
-    $("#cartTotal").textContent = money(0);
-    return;
-  }
-
-  let total = 0;
-  $("#cartItems").innerHTML = items.map(item => {
-    total += item.price * item.qty;
-    return `
-      <div class="cart-line">
-        <span>${item.icon} ${item.name}<br>
-          <small>${money(item.price)} × ${item.qty}</small>
-        </span>
-        <span>
-          <button class="ghost" data-qty-minus="${item.id}">−</button>
-          <button class="ghost" data-qty-plus="${item.id}">+</button>
-        </span>
-      </div>
-    `;
-  }).join("");
-
-  $("#cartTotal").textContent = money(total);
-}function openModal(id) {
-  $("#" + id).classList.add("show");
-}
-
-function closeModal(id) {
-  $("#" + id).classList.remove("show");
-}
-
-function setAuthMode(mode) {
-  authMode = mode;
-  const isSignup = mode === "signup";
-
-  $("#authTitle").textContent = isSignup ? "Create Account" : "Login";
-  $("#authSubmit").textContent = isSignup ? "Create Account" : "Login";
-  $("#nameField").hidden = !isSignup;
-  $("#authName").required = isSignup;
-  $("#authPassword").autocomplete = isSignup ? "new-password" : "current-password";
-  $("#toggleAuth").textContent = isSignup
-    ? "Already have an account? Login"
-    : "Create a new account";
-  $("#authStatus").textContent = "";
-}
-
-function showStatus(selector, message) {
-  $(selector).textContent = message;
-}
-
-async function saveProfile(user, extra = {}) {
-  if (!user) return;
-
-  await setDoc(doc(db, "users", user.uid), {
-    uid: user.uid,
-    name: user.displayName || extra.name || "",
-    email: user.email || "",
-    updatedAt: serverTimestamp()
-  }, { merge: true });
-}
-
-$("#authForm").addEventListener("submit", async event => {
-  event.preventDefault();
-
-  const email = $("#authEmail").value.trim();
-  const password = $("#authPassword").value;
-  const name = $("#authName").value.trim();
-
-  showStatus("#authStatus", "Please wait...");
-
-  try {
-    if (authMode === "signup") {
-      const result = await createUserWithEmailAndPassword(auth, email, password);
-
-      if (name) {
-        await updateProfile(result.user, { displayName: name });
+      header {
+        padding-top: 75px;
       }
 
-      await saveProfile(result.user, { name });
-      showStatus("#authStatus", "Account created successfully.");
-      closeModal("authBackdrop");
-    } else {
-      await signInWithEmailAndPassword(auth, email, password);
-      showStatus("#authStatus", "Login successful.");
-      closeModal("authBackdrop");
+      header h1 {
+        font-size: 25px;
+      }
+
+      .hero h2 {
+        font-size: 26px;
+      }
+
+      nav a {
+        display: inline-block;
+        margin: 5px 7px;
+      }
+
+      .profile-area {
+        right: 15px;
+        top: 15px;
+      }
+
+      .profile-icon {
+        width: 42px;
+        height: 42px;
+      }
     }
-  } catch (error) {
-    showStatus("#authStatus", error.message);
-  }
-});
+  </style>
+</head>
 
-$("#googleBtn").addEventListener("click", async () => {
-  showStatus("#authStatus", "Opening Google sign-in...");
+<body>
 
-  try {
-    const result = await signInWithPopup(auth, googleProvider);
-    await saveProfile(result.user);
-    closeModal("authBackdrop");
-  } catch (error) {
-    showStatus("#authStatus", error.message);
-  }
-});
+  <!-- HEADER -->
 
-$("#toggleAuth").addEventListener("click", () => {
-  setAuthMode(authMode === "login" ? "signup" : "login");
-});
+  <header>
 
-onAuthStateChanged(auth, async user => {
-  currentUser = user;
+    <div class="profile-area">
 
-  if (user) {
-    $("#loginBtn").textContent = "Logout";
-    try {
-      await saveProfile(user);
-    } catch (error) {
-      console.error("Could not save profile:", error);
-    }
-  } else {
-    $("#loginBtn").textContent = "Login";
-  }
-});
+      <!-- Login ہونے پر یہ profile icon بن جائے گا -->
+      <a
+        id="profileIcon"
+        class="profile-icon login-icon"
+        href="login.html"
+        title="Login">
+        👤
+      </a>
 
-$("#loginBtn").addEventListener("click", async () => {
-  if (currentUser) {
-    try {
-      await signOut(auth);
-    } catch (error) {
-      alert(error.message);
-    }
-  } else {
-    setAuthMode("login");
-    openModal("authBackdrop");
-  }
-});
+    </div>
 
-$("#searchForm").addEventListener("submit", event => {
-  event.preventDefault();
-  searchTerm = $("#searchInput").value.trim().toLowerCase();
-  showFavoritesOnly = false;
-  $("#productHeading").textContent = searchTerm
-    ? "Search Results"
-    : "Featured Products";
-  renderProducts();
-});
+    <h1>
+      Get and Buy Marketplace
+    </h1>
 
-$("#categories").addEventListener("click", event => {
-  const button = event.target.closest("[data-category]");
-  if (!button) return;
+    <p>
+      A place to discover products from around the world
+    </p>
 
-  activeCategory = button.dataset.category;
-  showFavoritesOnly = false;
+  </header>
 
-  document.querySelectorAll(".cat").forEach(cat => {
-    cat.classList.toggle("active", cat === button);
-  });
 
-  $("#productHeading").textContent =
-    activeCategory === "All" ? "Featured Products" : activeCategory;
+  <!-- NAVIGATION -->
 
-  renderProducts();
-});
+  <nav>
 
-$("#sortSelect").addEventListener("change", renderProducts);
+    <a href="#home">
+      Home
+    </a>
 
-$("#showAll").addEventListener("click", () => {
-  activeCategory = "All";
-  searchTerm = "";
-  showFavoritesOnly = false;
-  $("#searchInput").value = "";
-  $("#productHeading").textContent = "Featured Products";
-  document.querySelectorAll(".cat").forEach(cat => {
-    cat.classList.toggle("active", cat.dataset.category === "All");
-  });
-  renderProducts();
-});
+    <a href="#products">
+      Products
+    </a>
 
-$("#shopNowBtn").addEventListener("click", () => {
-  $("#productHeading").scrollIntoView({ behavior: "smooth" });
-});
+    <a href="#categories">
+      Categories
+    </a>
 
-$("#productGrid").addEventListener("click", event => {
-  const addButton = event.target.closest("[data-add]");
-  const favButton = event.target.closest("[data-fav]");
+    <a href="#sell">
+      Sell With Us
+    </a>
 
-  if (addButton) {
-    const id = addButton.dataset.add;
-    cart[id] = (cart[id] || 0) + 1;
-    saveLocalData();
-    updateCartCount();
-    addButton.textContent = "Added ✓";
-    setTimeout(() => {
-      if (addButton.isConnected) addButton.textContent = "Add to cart";
-    }, 800);
-  }
+  </nav>
 
-  if (favButton) {
-    const id = Number(favButton.dataset.fav);
 
-    if (favorites.includes(id)) {
-      favorites = favorites.filter(item => item !== id);
-    } else {
-      favorites.push(id);
-    }
+  <!-- LOGIN STATUS -->
 
-    saveLocalData();
-    renderProducts();
-  }
-});
+  <div
+    class="account-message"
+    id="accountMessage">
+    Welcome to Get and Buy Marketplace!
+  </div>
 
-$("#favoritesBtn").addEventListener("click", () => {
-  showFavoritesOnly = true;
-  activeCategory = "All";
-  searchTerm = "";
-  $("#searchInput").value = "";
-  $("#productHeading").textContent = "Your Favorites";
-  renderProducts();
-});$("#cartBtn").addEventListener("click", () => {
-  renderCart();
-  openModal("cartBackdrop");
-});
 
-$("#cartItems").addEventListener("click", event => {
-  const plus = event.target.closest("[data-qty-plus]");
-  const minus = event.target.closest("[data-qty-minus]");
+  <!-- HERO -->
 
-  if (plus) {
-    const id = plus.dataset.qtyPlus;
-    cart[id] = (cart[id] || 0) + 1;
-  }
+  <section
+    class="hero"
+    id="home">
 
-  if (minus) {
-    const id = minus.dataset.qtyMinus;
-    cart[id] = (cart[id] || 0) - 1;
-    if (cart[id] <= 0) delete cart[id];
-  }
+    <h2>
+      Buy and Sell Around the World
+    </h2>
 
-  saveLocalData();
-  updateCartCount();
-  renderCart();
-});
+    <p>
+      Discover products and connect with sellers worldwide.
+    </p>
 
-$("#clearCartBtn").addEventListener("click", () => {
-  cart = {};
-  saveLocalData();
-  updateCartCount();
-  renderCart();
-});
+    <a
+      class="hero-button"
+      href="#products">
+      Explore Products
+    </a>
 
-$("#sellerBtn").addEventListener("click", async () => {
-  if (!currentUser) {
-    setAuthMode("login");
-    openModal("authBackdrop");
-    showStatus("#authStatus", "Please log in before creating a seller profile.");
-    return;
-  }
+  </section>
 
-  try {
-    const snapshot = await getDoc(doc(db, "sellers", currentUser.uid));
 
-    if (snapshot.exists()) {
-      const seller = snapshot.data();
-      $("#sellerName").value = seller.name || "";
-      $("#sellerPhone").value = seller.phone || "";
-      $("#sellerDescription").value = seller.description || "";
-    } else {
-      $("#sellerName").value = currentUser.displayName || "";
-      $("#sellerPhone").value = "";
-      $("#sellerDescription").value = "";
-    }
+  <!-- PRODUCTS -->
 
-    showStatus("#sellerStatus", "");
-    openModal("sellerBackdrop");
-  } catch (error) {
-    showStatus("#sellerStatus", error.message);
-    openModal("sellerBackdrop");
-  }
-});
+  <main class="container">
 
-$("#sellerForm").addEventListener("submit", async event => {
-  event.preventDefault();
+    <h2 id="products">
+      Featured Products
+    </h2>
 
-  if (!currentUser) {
-    showStatus("#sellerStatus", "Please log in first.");
-    return;
-  }
+    <p class="intro">
+      Discover products from sellers around the world.
+    </p>
 
-  const sellerData = {
-    uid: currentUser.uid,
-    name: $("#sellerName").value.trim(),
-    phone: $("#sellerPhone").value.trim(),
-    description: $("#sellerDescription").value.trim(),
-    email: currentUser.email || "",
-    updatedAt: serverTimestamp()
-  };
 
-  showStatus("#sellerStatus", "Saving seller profile...");
+    <div class="products">
 
-  try {
-    await setDoc(doc(db, "sellers", currentUser.uid), sellerData, {
-      merge: true
-    });
+      <!-- PRODUCT 1 -->
 
-    showStatus("#sellerStatus", "Seller profile saved successfully.");
-  } catch (error) {
-    showStatus("#sellerStatus", error.message);
-  }
-});
+      <article class="card">
 
-document.querySelectorAll("[data-close]").forEach(button => {
-  button.addEventListener("click", () => {
-    closeModal(button.dataset.close);
-  });
-});
+        <span class="tag">
+          Featured
+        </span>
 
-document.querySelectorAll(".modal-backdrop").forEach(backdrop => {
-  backdrop.addEventListener("click", event => {
-    if (event.target === backdrop) {
-      closeModal(backdrop.id);
-    }
-  });
-});
+        <h3>
+          Handmade Accessories
+        </h3>
 
-document.addEventListener("keydown", event => {
-  if (event.key === "Escape") {
-    document.querySelectorAll(".modal-backdrop.show").forEach(modal => {
-      closeModal(modal.id);
-    });
-  }
-});
+        <p>
+          Discover unique handmade accessories
+          from independent sellers.
+        </p>
 
-renderProducts();
-updateCartCount();
-</script>
+        <p>
+          <strong>
+            Price:
+          </strong>
+          Coming Soon
+        </p>
+
+        <button
+          class="product-button"
+          onclick="viewProduct('Handmade Accessories')">
+          View Details
+        </button>
+
+        <button
+          class="favorite-button"
+          onclick="addFavorite('Handmade Accessories')">
+          ♥ Favorite
+        </button>
+
+      </article>
+
+
+      <!-- PRODUCT 2 -->
+
+      <article class="card">
+
+        <span class="tag">
+          Featured
+        </span>
+
+        <h3>
+          Fashion and Clothing
+        </h3>
+
+        <p>
+          Explore fashion and clothing products
+          from different sellers.
+        </p>
+
+        <p>
+          <strong>
+            Price:
+          </strong>
+          Coming Soon
+        </p>
+
+        <button
+          class="product-button"
+          onclick="viewProduct('Fashion and Clothing')">
+          View Details
+        </button>
+
+        <button
+          class="favorite-button"
+          onclick="addFavorite('Fashion and Clothing')">
+          ♥ Favorite
+        </button>
+
+      </article>
+
+
+      <!-- PRODUCT 3 -->
+
+      <article class="card">
+
+        <span class="tag">
+          Featured
+        </span>
+
+        <h3>
+          Home and Crafts
+        </h3>
+
+        <p>
+          Find creative and useful products
+          for your home.
+        </p>
+
+        <p>
+          <strong>
+            Price:
+          </strong>
+          Coming Soon
+        </p>
+
+        <button
+          class="product-button"
+          onclick="viewProduct('Home and Crafts')">
+          View Details
+        </button>
+
+        <button
+          class="favorite-button"
+          onclick="addFavorite('Home and Crafts')">
+          ♥ Favorite
+        </button>
+
+      </article>
+
+    </div>
+
+
+    <!-- CATEGORIES -->
+
+    <section
+      class="features"
+      id="categories">
+
+      <div class="feature">
+
+        <h3>
+          Handmade
+        </h3>
+
+        <p>
+          Unique handmade products.
+        </p>
+
+      </div>
+
+
+      <div class="feature">
+
+        <h3>
+          Fashion
+        </h3>
+
+        <p>
+          Fashion and clothing.
+        </p>
+
+      </div>
+
+
+      <div class="feature">
+
+        <h3>
+          Home & Crafts
+        </h3>
+
+        <p>
+          Creative products for your home.
+        </p>
+
+      </div>
+
+
+      <div class="feature">
+
+        <h3>
+          Worldwide
+        </h3>
+
+        <p>
+          Buy and sell around the world.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- SELLER SECTION -->
+
+    <section
+      class="card sell-section"
+      id="sell">
+
+      <h2>
+        Want to Sell Your Products?
+      </h2>
+
+      <p>
+        Join our marketplace and reach buyers
+        around the world.
+      </p>
+
+      <a
+        class="sell-button"
+        href="signup.html">
+        Become a Seller
+      </a>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <p>
+      <strong>
+        Get and Buy Marketplace
+      </strong>
+    </p>
+
+    <p>
+      Buy and Sell Around the World
+    </p>
+
+    <p>
+      © 2026 Get and Buy Marketplace
+    </p>
+
+  </footer>
+
+
+  <!-- FIREBASE -->
+
+  <script type="module">
+
+    import {
+      initializeApp
+    } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
+
+    import {
+      getAuth,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
+
+
+    const firebaseConfig = {
+
+      apiKey:
+        "AIzaSyDgyL5BzzWdvdTv2Y8ZZo_LX2cIXE3SO-c",
+
+      authDomain:
+        "get-and-buy-marketplace.firebaseapp.com",
+
+      projectId:
+        "get-and-buy-marketplace",
+
+      storageBucket:
+        "get-and-buy-marketplace.firebasestorage.app",
+
+      messagingSenderId:
+        "67666978418",
+
+      appId:
+        "1:67666978418:web:f2618b9ac9c133ebdfc4eb",
+
+      measurementId:
+        "G-XTLMRGQBJM"
+
+    };
+
+
+    const app =
+      initializeApp(firebaseConfig);
+
+    const auth =
+      getAuth(app);
+
+
+    const profileIcon =
+      document.getElementById("profileIcon");
+
+    const accountMessage =
+      document.getElementById("accountMessage");
+
+
+    /*
+      CHECK USER LOGIN
+    */
+
+    onAuthStateChanged(
+      auth,
+      function(user) {
+
+        if (user) {
+
+          /*
+            User logged in
+            Profile icon opens profile.html
+          */
+
+          profileIcon.href =
+            "profile.html";
+
+          profileIcon.classList.remove(
+            "login-icon"
+          );
+
+          /*
+            User's first letter
+            will appear inside circle
+          */
+
+          const name =
+            user.displayName ||
+            user.email ||
+            "U";
+
+          profileIcon.textContent =
+            name.charAt(0).toUpperCase();
+
+          profileIcon.title =
+            "My Profile";
+
+          accountMessage.style.display =
+            "block";
+
+          accountMessage.textContent =
+            "Welcome, " + name + "!";
+
+        } else {
+
+          /*
+            User not logged in
+          */
+
+          profileIcon.href =
+            "login.html";
+
+          profileIcon.classList.add(
+            "login-icon"
+          );
+
+          profileIcon.textContent =
+            "👤";
+
+          profileIcon.title =
+            "Login";
+
+          accountMessage.style.display =
+            "none";
+
+        }
+
+      }
+    );
+
+
+    /*
+      VIEW PRODUCT
+    */
+
+    window.viewProduct =
+      function(productName) {
+
+        const user =
+          auth.currentUser;
+
+        if (!user) {
+
+          alert(
+            "Please login first to view product details."
+          );
+
+          window.location.href =
+            "login.html";
+
+          return;
+
+        }
+
+        alert(
+          productName +
+          " product details will be available soon."
+        );
+
+      };
+
+
+    /*
+      ADD FAVORITE
+    */
+
+    window.addFavorite =
+      function(productName) {
+
+        const user =
+          auth.currentUser;
+
+        if (!user) {
+
+          alert(
+            "Please login first to add favorites."
+          );
+
+          window.location.href =
+            "login.html";
+
+          return;
+
+        }
+
+        alert(
+          productName +
+          " will be added to your favorites."
+        );
+
+        /*
+          Firebase Firestore will be connected
+          to this function in the next step.
+        */
+
+      };
+
+  </script>
+
 </body>
 </html>
