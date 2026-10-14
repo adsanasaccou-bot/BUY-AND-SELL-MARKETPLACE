@@ -3,308 +3,143 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - Get and Buy Marketplace</title>
-
+  <title>Log In | Get and Buy Marketplace</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-
-    .login-box {
-      width: 100%;
-      max-width: 420px;
-      background: white;
-      padding: 35px;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
-    }
-
-    .logo {
-      text-align: center;
-      color: #123b67;
-      margin-bottom: 8px;
-    }
-
-    .subtitle {
-      text-align: center;
-      color: #666;
-      margin-bottom: 28px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 7px;
-      font-weight: bold;
-    }
-
-    input {
-      width: 100%;
-      padding: 13px;
-      margin-bottom: 18px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 15px;
-    }
-
-    button {
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    .login-btn {
-      width: 100%;
-      padding: 13px;
-      background: #087f5b;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
-    }
-
-    .google-btn {
-      width: 100%;
-      padding: 13px;
-      margin-top: 12px;
-      background: white;
-      color: #333;
-      border: 1px solid #bbb;
-      border-radius: 6px;
-      font-weight: bold;
-    }
-
-    .divider {
-      text-align: center;
-      margin: 22px 0;
-      color: #888;
-    }
-
-    .signup {
-      text-align: center;
-      margin-top: 22px;
-    }
-
-    .signup a {
-      color: #087f5b;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .back {
-      display: block;
-      text-align: center;
-      margin-top: 20px;
-      color: #123b67;
-      text-decoration: none;
-    }
-
-    #message {
-      text-align: center;
-      margin-top: 15px;
-      font-size: 14px;
-      min-height: 20px;
-    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#172033}
+    .wrap{max-width:440px;margin:45px auto;padding:20px}
+    .card{background:#fff;border-radius:18px;padding:28px;box-shadow:0 8px 30px #15223b12}
+    h1{text-align:center;font-size:27px;margin:0 0 8px}
+    .sub{text-align:center;color:#667085;line-height:1.5;margin-bottom:24px}
+    label{display:block;font-weight:600;margin:15px 0 7px}
+    input{width:100%;padding:13px;border:1px solid #d7deea;border-radius:9px;font-size:16px}
+    button{width:100%;padding:13px;border:0;border-radius:9px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:15px}
+    .primary{background:#2563eb;color:white}
+    .google{background:#fff;border:1px solid #d7deea;color:#172033}
+    button:disabled{opacity:.6;cursor:wait}
+    .message{font-size:14px;line-height:1.5;margin-top:14px;overflow-wrap:anywhere}
+    .links{text-align:center;margin-top:20px;line-height:1.8}
+    a{color:#2563eb;text-decoration:none}
   </style>
 </head>
-
 <body>
+  <main class="wrap">
+    <div class="card">
+      <h1>Welcome Back</h1>
+      <p class="sub">Log in to buy products and manage items you sell.</p>
 
-  <div class="login-box">
+      <form id="loginForm">
+        <label for="email">Email address</label>
+        <input id="email" type="email" autocomplete="email" required placeholder="you@example.com">
 
-    <h1 class="logo">Get and Buy</h1>
+        <label for="password">Password</label>
+        <input id="password" type="password" autocomplete="current-password" required placeholder="Enter your password">
 
-    <p class="subtitle">
-      Login to your marketplace account
-    </p>
+        <button class="primary" id="loginBtn" type="submit">Log In</button>
+      </form>
 
-    <form id="loginForm">
+      <button class="google" id="googleBtn" type="button">Continue with Google</button>
+      <p id="message" class="message" role="status"></p>
 
-      <label for="email">
-        Email Address
-      </label>
-
-      <input
-        type="email"
-        id="email"
-        placeholder="Enter your email"
-        required
-      >
-
-      <label for="password">
-        Password
-      </label>
-
-      <input
-        type="password"
-        id="password"
-        placeholder="Enter your password"
-        required
-      >
-
-      <button
-        class="login-btn"
-        type="submit">
-        Login
-      </button>
-
-    </form>
-
-    <div class="divider">
-      OR
+      <div class="links">
+        Don't have an account? <a href="signup.html">Create one</a><br>
+        <a href="index.html">Back to Marketplace</a>
+      </div>
     </div>
-
-    <button
-      class="google-btn"
-      id="googleLogin">
-      Continue with Google
-    </button>
-
-    <div id="message"></div>
-
-    <div class="signup">
-      Don't have an account?
-      <a href="signup.html">Sign Up</a>
-    </div>
-
-    <a
-      class="back"
-      href="index.html">
-      ← Back to Home
-    </a>
-
-  </div>
-
+  </main>
 
   <script type="module">
-
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
     import {
-      initializeApp
-    } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
-
-    import {
-      getAuth,
-      signInWithEmailAndPassword,
-      GoogleAuthProvider,
-      signInWithPopup
-    } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
-
+      getAuth, signInWithEmailAndPassword,
+      GoogleAuthProvider, signInWithPopup
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
     const firebaseConfig = {
-
       apiKey: "AIzaSyDgyL5BzzWdvdTv2Y8ZZo_LX2cIXE3SO-c",
-
       authDomain: "get-and-buy-marketplace.firebaseapp.com",
-
       projectId: "get-and-buy-marketplace",
-
       storageBucket: "get-and-buy-marketplace.firebasestorage.app",
-
       messagingSenderId: "67666978418",
-
       appId: "1:67666978418:web:f2618b9ac9c133ebdfc4eb",
-
       measurementId: "G-XTLMRGQBJM"
-
     };
 
-
     const app = initializeApp(firebaseConfig);
-
     const auth = getAuth(app);
-
+    const db = getFirestore(app);
     const provider = new GoogleAuthProvider();
 
-
+    const form = document.getElementById("loginForm");
+    const loginBtn = document.getElementById("loginBtn");
+    const googleBtn = document.getElementById("googleBtn");
     const message = document.getElementById("message");
 
+    function showMessage(text, isError = true) {
+      message.textContent = text;
+      message.style.color = isError ? "#b42318" : "#087443";
+    }
 
-    document
-      .getElementById("loginForm")
-      .addEventListener("submit", async function(event) {
+    async function saveMember(user) {
+      await setDoc(doc(db, "users", user.uid), {
+        uid: user.uid,
+        name: user.displayName || "",
+        email: user.email || "",
+        photoURL: user.photoURL || "",
+        accountType: "Buyer & Seller",
+        updatedAt: serverTimestamp()
+      }, { merge: true });
+    }
 
-        event.preventDefault();
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      loginBtn.disabled = true;
+      googleBtn.disabled = true;
+      showMessage("Logging in...", false);
 
-        const email =
-          document.getElementById("email").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
 
-        const password =
-          document.getElementById("password").value;
+      try {
+        const result = await signInWithEmailAndPassword(auth, email, password);
+        await saveMember(result.user);
+        window.location.href = "profile.html";
+      } catch (error) {
+        console.error(error);
+        const messages = {
+          "auth/invalid-credential": "Email or password is incorrect. Check your details and try again.",
+          "auth/user-not-found": "No account found for this email. Please sign up first.",
+          "auth/wrong-password": "Incorrect password. Please try again.",
+          "auth/invalid-email": "Please enter a valid email address.",
+          "auth/too-many-requests": "Too many attempts. Please wait and try again.",
+          "auth/network-request-failed": "Network error. Check your internet connection.",
+          "permission-denied": "Firestore permissions need to be configured. Share this error so we can fix it."
+        };
+        showMessage(messages[error.code] || error.message || "Login failed. Please try again.");
+      } finally {
+        loginBtn.disabled = false;
+        googleBtn.disabled = false;
+      }
+    });
 
-        message.textContent = "Logging in...";
+    googleBtn.addEventListener("click", async () => {
+      googleBtn.disabled = true;
+      loginBtn.disabled = true;
+      showMessage("Connecting to Google...", false);
 
-        try {
-
-          await signInWithEmailAndPassword(
-            auth,
-            email,
-            password
-          );
-
-          message.textContent =
-            "Login successful!";
-
-          setTimeout(function() {
-
-            window.location.href =
-              "index.html";
-
-          }, 1000);
-
-        } catch (error) {
-
-          message.textContent =
-            "Login failed: " + error.message;
-
-        }
-
-      });
-
-
-    document
-      .getElementById("googleLogin")
-      .addEventListener("click", async function() {
-
-        message.textContent =
-          "Connecting to Google...";
-
-        try {
-
-          await signInWithPopup(
-            auth,
-            provider
-          );
-
-          message.textContent =
-            "Google login successful!";
-
-          setTimeout(function() {
-
-            window.location.href =
-              "index.html";
-
-          }, 1000);
-
-        } catch (error) {
-
-          message.textContent =
-            "Google login failed: " +
-            error.message;
-
-        }
-
-      });
-
+      try {
+        const result = await signInWithPopup(auth, provider);
+        await saveMember(result.user);
+        window.location.href = "profile.html";
+      } catch (error) {
+        console.error(error);
+        showMessage(error.message || "Google sign-in failed. Please try again.");
+      } finally {
+        googleBtn.disabled = false;
+        loginBtn.disabled = false;
+      }
+    });
   </script>
-
 </body>
 </html>
